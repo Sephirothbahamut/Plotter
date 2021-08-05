@@ -1,0 +1,1 @@
+C:\Users\Sephi\Documents\Programming\VS\Projects\SFML\Plotter\dotnet-interop-clr\Standalone\dotnet-interop-clr.vcxproj.CopyComplete

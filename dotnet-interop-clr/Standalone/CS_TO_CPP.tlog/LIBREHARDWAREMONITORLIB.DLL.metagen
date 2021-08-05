@@ -1,0 +1,1443 @@
+  LibreHardwareMonitor.Hardware.WinRing0.sys - Embedded, ContainedInManifestFile, 
+  LibreHardwareMonitor.Hardware.WinRing0x64.sys - Embedded, ContainedInManifestFile, 
+ImageRuntimeVersion: v4.0.30319
+Assembly LibreHardwareMonitorLib, Version=0.8.*, Culture=Invariant Language (Invariant Country): 
+	hash=SHA1, flags=PublicKey
+Assembly mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System.Management, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a: 
+	hash=None, flags=None
+Assembly HidSharp, Version=2.1.*, Culture=Invariant Language (Invariant Country): 
+	hash=None, flags=None
+Class LibreHardwareMonitor.Software.OperatingSystem: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed
+  Properties:
+    Boolean Is64Bit 'get ' : 
+    Boolean IsUnix 'get ' : 
+  Methods:
+    get_Is64Bit(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_IsUnix(): PrivateScope, Public, Static, HideBySig, SpecialName
+Class LibreHardwareMonitor.Interop.Kernel32: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Int32 ERROR_SERVICE_ALREADY_RUNNING = -2147023840 : Public, Static, Literal, HasDefault
+    Int32 ERROR_SERVICE_EXISTS = -2147023823 : Public, Static, Literal, HasDefault
+  Methods:
+    GetActiveProcessorGroupCount(): PrivateScope, Public, Static, HideBySig, PinvokeImpl
+    SetThreadGroupAffinity(IntPtr, GROUP_AFFINITY&, GROUP_AFFINITY&(Out)): PrivateScope, Public, Static, HideBySig, PinvokeImpl
+Class LibreHardwareMonitor.Hardware.Computer: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(LibreHardwareMonitor.Hardware.ISettings): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    LibreHardwareMonitor.Hardware.IComputer
+    LibreHardwareMonitor.Hardware.IElement
+  Properties:
+    System.Collections.Generic.IList`1[LibreHardwareMonitor.Hardware.IHardware] Hardware 'get ' : 
+    Boolean IsCpuEnabled 'get set' : 
+    Boolean IsControllerEnabled 'get set' : 
+    Boolean IsGpuEnabled 'get set' : 
+    Boolean IsMemoryEnabled 'get set' : 
+    Boolean IsMotherboardEnabled 'get set' : 
+    Boolean IsNetworkEnabled 'get set' : 
+    Boolean IsStorageEnabled 'get set' : 
+  Events:
+    LibreHardwareMonitor.Hardware.HardwareEventHandler HardwareAdded: 
+    LibreHardwareMonitor.Hardware.HardwareEventHandler HardwareRemoved: 
+  Methods:
+    add_HardwareAdded(HardwareEventHandler): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    remove_HardwareAdded(HardwareEventHandler): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    add_HardwareRemoved(HardwareEventHandler): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    remove_HardwareRemoved(HardwareEventHandler): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_Hardware(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_IsCpuEnabled(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    set_IsCpuEnabled(Boolean): PrivateScope, Public, HideBySig, SpecialName
+    get_IsControllerEnabled(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    set_IsControllerEnabled(Boolean): PrivateScope, Public, HideBySig, SpecialName
+    get_IsGpuEnabled(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    set_IsGpuEnabled(Boolean): PrivateScope, Public, HideBySig, SpecialName
+    get_IsMemoryEnabled(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    set_IsMemoryEnabled(Boolean): PrivateScope, Public, HideBySig, SpecialName
+    get_IsMotherboardEnabled(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    set_IsMotherboardEnabled(Boolean): PrivateScope, Public, HideBySig, SpecialName
+    get_IsNetworkEnabled(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    set_IsNetworkEnabled(Boolean): PrivateScope, Public, HideBySig, SpecialName
+    get_IsStorageEnabled(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    set_IsStorageEnabled(Boolean): PrivateScope, Public, HideBySig, SpecialName
+    GetReport(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    Accept(IVisitor): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    Traverse(IVisitor): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    Open(): PrivateScope, Public, HideBySig
+    Close(): PrivateScope, Public, HideBySig
+    Reset(): PrivateScope, Public, HideBySig
+Struct LibreHardwareMonitor.Hardware.GroupAffinity: AutoLayout, AnsiClass, Class, Public, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+    Void .ctor(UInt16, UInt64): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    LibreHardwareMonitor.Hardware.GroupAffinity Undefined : Public, Static
+  Properties:
+    UInt16 Group 'get ' : 
+    UInt64 Mask 'get ' : 
+  Methods:
+    Single(UInt16, Int32): PrivateScope, Public, Static, HideBySig
+    get_Group(): PrivateScope, Public, HideBySig, SpecialName
+    get_Mask(): PrivateScope, Public, HideBySig, SpecialName
+    Equals(Object): PrivateScope, Public, Virtual, HideBySig
+    GetHashCode(): PrivateScope, Public, Virtual, HideBySig
+    op_Equality(GroupAffinity, GroupAffinity): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_Inequality(GroupAffinity, GroupAffinity): PrivateScope, Public, Static, HideBySig, SpecialName
+Class LibreHardwareMonitor.Hardware.Hardware: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  Interfaces:
+    LibreHardwareMonitor.Hardware.IHardware
+    LibreHardwareMonitor.Hardware.IElement
+  Properties:
+    LibreHardwareMonitor.Hardware.HardwareType HardwareType 'get ' : 
+    LibreHardwareMonitor.Hardware.Identifier Identifier 'get ' : 
+    System.String Name 'get set' : 
+    LibreHardwareMonitor.Hardware.IHardware Parent 'get ' : 
+    LibreHardwareMonitor.Hardware.ISensor[] Sensors 'get ' : 
+    LibreHardwareMonitor.Hardware.IHardware[] SubHardware 'get ' : 
+  Events:
+    LibreHardwareMonitor.Hardware.HardwareEventHandler Closing: 
+    LibreHardwareMonitor.Hardware.SensorEventHandler SensorAdded: 
+    LibreHardwareMonitor.Hardware.SensorEventHandler SensorRemoved: 
+  Methods:
+    get_HardwareType(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Identifier(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_Name(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    set_Name(String): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_Parent(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_Sensors(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_SubHardware(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    GetReport(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    Update(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    Accept(IVisitor): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    Traverse(IVisitor): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    add_Closing(HardwareEventHandler): PrivateScope, Public, HideBySig, SpecialName
+    remove_Closing(HardwareEventHandler): PrivateScope, Public, HideBySig, SpecialName
+    Close(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    add_SensorAdded(SensorEventHandler): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    remove_SensorAdded(SensorEventHandler): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    add_SensorRemoved(SensorEventHandler): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    remove_SensorRemoved(SensorEventHandler): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+Class LibreHardwareMonitor.Hardware.HardwareEventHandler: AutoLayout, AnsiClass, Class, Public, Sealed
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Invoke(IHardware): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    BeginInvoke(IHardware, AsyncCallback, Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Interface LibreHardwareMonitor.Hardware.IComputer: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    LibreHardwareMonitor.Hardware.IElement
+  Properties:
+    Boolean IsCpuEnabled 'get ' : 
+    Boolean IsControllerEnabled 'get ' : 
+    Boolean IsGpuEnabled 'get ' : 
+    System.Collections.Generic.IList`1[LibreHardwareMonitor.Hardware.IHardware] Hardware 'get ' : 
+    Boolean IsStorageEnabled 'get ' : 
+    Boolean IsMotherboardEnabled 'get ' : 
+    Boolean IsNetworkEnabled 'get ' : 
+    Boolean IsMemoryEnabled 'get ' : 
+  Events:
+    LibreHardwareMonitor.Hardware.HardwareEventHandler HardwareAdded: 
+    LibreHardwareMonitor.Hardware.HardwareEventHandler HardwareRemoved: 
+  Methods:
+    get_IsCpuEnabled(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_IsControllerEnabled(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_IsGpuEnabled(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Hardware(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_IsStorageEnabled(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_IsMotherboardEnabled(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_IsNetworkEnabled(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_IsMemoryEnabled(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    GetReport(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    add_HardwareAdded(HardwareEventHandler): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    remove_HardwareAdded(HardwareEventHandler): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    add_HardwareRemoved(HardwareEventHandler): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    remove_HardwareRemoved(HardwareEventHandler): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Struct LibreHardwareMonitor.Hardware.ControlMode: AutoLayout, AnsiClass, Class, Public, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    LibreHardwareMonitor.Hardware.ControlMode Undefined = 0 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ControlMode Software = 1 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ControlMode Default = 2 : Public, Static, Literal, HasDefault
+Interface LibreHardwareMonitor.Hardware.IControl: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Properties:
+    LibreHardwareMonitor.Hardware.ControlMode ControlMode 'get ' : 
+    LibreHardwareMonitor.Hardware.Identifier Identifier 'get ' : 
+    Single MaxSoftwareValue 'get ' : 
+    Single MinSoftwareValue 'get ' : 
+    Single SoftwareValue 'get ' : 
+  Methods:
+    get_ControlMode(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Identifier(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_MaxSoftwareValue(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_MinSoftwareValue(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_SoftwareValue(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    SetDefault(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    SetSoftware(Single): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class LibreHardwareMonitor.Hardware.Identifier: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(System.String[]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(LibreHardwareMonitor.Hardware.Identifier, System.String[]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    System.IComparable`1[LibreHardwareMonitor.Hardware.Identifier]
+  Methods:
+    CompareTo(Identifier): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    ToString(): PrivateScope, Public, Virtual, HideBySig
+    Equals(Object): PrivateScope, Public, Virtual, HideBySig
+    GetHashCode(): PrivateScope, Public, Virtual, HideBySig
+    op_Equality(Identifier, Identifier): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_Inequality(Identifier, Identifier): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_LessThan(Identifier, Identifier): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_GreaterThan(Identifier, Identifier): PrivateScope, Public, Static, HideBySig, SpecialName
+Interface LibreHardwareMonitor.Hardware.IElement: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Methods:
+    Accept(IVisitor): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    Traverse(IVisitor): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class LibreHardwareMonitor.Hardware.SensorEventHandler: AutoLayout, AnsiClass, Class, Public, Sealed
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Invoke(ISensor): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    BeginInvoke(ISensor, AsyncCallback, Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Struct LibreHardwareMonitor.Hardware.HardwareType: AutoLayout, AnsiClass, Class, Public, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    LibreHardwareMonitor.Hardware.HardwareType Motherboard = 0 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.HardwareType SuperIO = 1 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.HardwareType Cpu = 2 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.HardwareType Memory = 3 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.HardwareType GpuNvidia = 4 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.HardwareType GpuAmd = 5 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.HardwareType Storage = 6 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.HardwareType Network = 7 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.HardwareType Cooler = 8 : Public, Static, Literal, HasDefault
+Interface LibreHardwareMonitor.Hardware.IHardware: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    LibreHardwareMonitor.Hardware.IElement
+  Properties:
+    LibreHardwareMonitor.Hardware.HardwareType HardwareType 'get ' : 
+    LibreHardwareMonitor.Hardware.Identifier Identifier 'get ' : 
+    System.String Name 'get set' : 
+    LibreHardwareMonitor.Hardware.IHardware Parent 'get ' : 
+    LibreHardwareMonitor.Hardware.ISensor[] Sensors 'get ' : 
+    LibreHardwareMonitor.Hardware.IHardware[] SubHardware 'get ' : 
+  Events:
+    LibreHardwareMonitor.Hardware.SensorEventHandler SensorAdded: 
+    LibreHardwareMonitor.Hardware.SensorEventHandler SensorRemoved: 
+  Methods:
+    get_HardwareType(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Identifier(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Name(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    set_Name(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Parent(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Sensors(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_SubHardware(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    GetReport(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    Update(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    add_SensorAdded(SensorEventHandler): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    remove_SensorAdded(SensorEventHandler): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    add_SensorRemoved(SensorEventHandler): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    remove_SensorRemoved(SensorEventHandler): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Interface LibreHardwareMonitor.Hardware.IParameter: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    LibreHardwareMonitor.Hardware.IElement
+  Properties:
+    Single DefaultValue 'get ' : 
+    System.String Description 'get ' : 
+    LibreHardwareMonitor.Hardware.Identifier Identifier 'get ' : 
+    Boolean IsDefault 'get set' : 
+    System.String Name 'get ' : 
+    LibreHardwareMonitor.Hardware.ISensor Sensor 'get ' : 
+    Single Value 'get set' : 
+  Methods:
+    get_DefaultValue(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Description(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Identifier(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_IsDefault(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    set_IsDefault(Boolean): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Name(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Sensor(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Value(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    set_Value(Single): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Struct LibreHardwareMonitor.Hardware.SensorType: AutoLayout, AnsiClass, Class, Public, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    LibreHardwareMonitor.Hardware.SensorType Voltage = 0 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.SensorType Clock = 1 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.SensorType Temperature = 2 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.SensorType Load = 3 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.SensorType Frequency = 4 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.SensorType Fan = 5 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.SensorType Flow = 6 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.SensorType Control = 7 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.SensorType Level = 8 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.SensorType Factor = 9 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.SensorType Power = 10 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.SensorType Data = 11 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.SensorType SmallData = 12 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.SensorType Throughput = 13 : Public, Static, Literal, HasDefault
+Struct LibreHardwareMonitor.Hardware.SensorValue: AutoLayout, AnsiClass, Class, Public, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+    Void .ctor(Single, System.DateTime): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Single Value 'get ' : 
+    System.DateTime Time 'get ' : 
+  Methods:
+    get_Value(): PrivateScope, Public, HideBySig, SpecialName
+    get_Time(): PrivateScope, Public, HideBySig, SpecialName
+Interface LibreHardwareMonitor.Hardware.ISensor: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    LibreHardwareMonitor.Hardware.IElement
+  Properties:
+    LibreHardwareMonitor.Hardware.IControl Control 'get ' : 
+    LibreHardwareMonitor.Hardware.IHardware Hardware 'get ' : 
+    LibreHardwareMonitor.Hardware.Identifier Identifier 'get ' : 
+    Int32 Index 'get ' : 
+    Boolean IsDefaultHidden 'get ' : 
+    System.Nullable`1[System.Single] Max 'get ' : 
+    System.Nullable`1[System.Single] Min 'get ' : 
+    System.String Name 'get set' : 
+    System.Collections.Generic.IReadOnlyList`1[LibreHardwareMonitor.Hardware.IParameter] Parameters 'get ' : 
+    LibreHardwareMonitor.Hardware.SensorType SensorType 'get ' : 
+    System.Nullable`1[System.Single] Value 'get ' : 
+    System.Collections.Generic.IEnumerable`1[LibreHardwareMonitor.Hardware.SensorValue] Values 'get ' : 
+    System.TimeSpan ValuesTimeWindow 'get set' : 
+  Methods:
+    get_Control(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Hardware(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Identifier(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Index(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_IsDefaultHidden(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Max(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Min(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Name(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    set_Name(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Parameters(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_SensorType(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Value(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Values(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_ValuesTimeWindow(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    set_ValuesTimeWindow(TimeSpan): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    ResetMin(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    ResetMax(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Interface LibreHardwareMonitor.Hardware.ISettings: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Methods:
+    Contains(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    SetValue(String, String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    GetValue(String, String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    Remove(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Interface LibreHardwareMonitor.Hardware.IVisitor: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Methods:
+    VisitComputer(IComputer): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    VisitHardware(IHardware): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    VisitSensor(ISensor): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    VisitParameter(IParameter): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Struct LibreHardwareMonitor.Hardware.ParameterDescription: AutoLayout, AnsiClass, Class, Public, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+    Void .ctor(System.String, System.String, Single): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String Name 'get ' : 
+    System.String Description 'get ' : 
+    Single DefaultValue 'get ' : 
+  Methods:
+    get_Name(): PrivateScope, Public, HideBySig, SpecialName
+    get_Description(): PrivateScope, Public, HideBySig, SpecialName
+    get_DefaultValue(): PrivateScope, Public, HideBySig, SpecialName
+Class LibreHardwareMonitor.Hardware.SensorVisitor: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(LibreHardwareMonitor.Hardware.SensorEventHandler): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    LibreHardwareMonitor.Hardware.IVisitor
+  Methods:
+    VisitComputer(IComputer): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    VisitHardware(IHardware): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    VisitSensor(ISensor): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    VisitParameter(IParameter): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Struct LibreHardwareMonitor.Hardware.ChassisSecurityStatus: AutoLayout, AnsiClass, Class, Public, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    LibreHardwareMonitor.Hardware.ChassisSecurityStatus Other = 1 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ChassisSecurityStatus Unknown = 2 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ChassisSecurityStatus None = 3 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ChassisSecurityStatus ExternalInterfaceLockedOut = 4 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ChassisSecurityStatus ExternalInterfaceEnabled = 5 : Public, Static, Literal, HasDefault
+Struct LibreHardwareMonitor.Hardware.ChassisStates: AutoLayout, AnsiClass, Class, Public, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    LibreHardwareMonitor.Hardware.ChassisStates Other = 1 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ChassisStates Unknown = 2 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ChassisStates Safe = 3 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ChassisStates Warning = 4 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ChassisStates Critical = 5 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ChassisStates NonRecoverable = 6 : Public, Static, Literal, HasDefault
+Struct LibreHardwareMonitor.Hardware.ChassisType: AutoLayout, AnsiClass, Class, Public, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    LibreHardwareMonitor.Hardware.ChassisType Other = 1 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ChassisType Unknown = 2 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ChassisType Desktop = 3 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ChassisType LowProfileDesktop = 4 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ChassisType PizzaBox = 5 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ChassisType MiniTower = 6 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ChassisType Tower = 7 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ChassisType Portable = 8 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ChassisType Laptop = 9 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ChassisType Notebook = 10 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ChassisType HandHeld = 11 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ChassisType DockingStation = 12 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ChassisType AllInOne = 13 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ChassisType SubNotebook = 14 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ChassisType SpaceSaving = 15 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ChassisType LunchBox = 16 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ChassisType MainServerChassis = 17 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ChassisType ExpansionChassis = 18 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ChassisType SubChassis = 19 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ChassisType BusExpansionChassis = 20 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ChassisType PeripheralChassis = 21 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ChassisType RaidChassis = 22 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ChassisType RackMountChassis = 23 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ChassisType SealedCasePC = 24 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ChassisType MultiSystemChassis = 25 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ChassisType CompactPci = 26 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ChassisType AdvancedTca = 27 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ChassisType Blade = 28 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ChassisType BladeEnclosure = 29 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ChassisType Tablet = 30 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ChassisType Convertible = 31 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ChassisType Detachable = 32 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ChassisType IoTGateway = 33 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ChassisType EmbeddedPC = 34 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ChassisType MiniPC = 35 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ChassisType StickPC = 36 : Public, Static, Literal, HasDefault
+Struct LibreHardwareMonitor.Hardware.ProcessorFamily: AutoLayout, AnsiClass, Class, Public, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    LibreHardwareMonitor.Hardware.ProcessorFamily Other = 1 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily Intel8086 = 3 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily Intel80286 = 4 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily Intel386 = 5 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily Intel486 = 6 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily Intel8087 = 7 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily Intel80287 = 8 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily Intel80387 = 9 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily Intel80487 = 10 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelPentium = 11 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelPentiumPro = 12 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelPentiumII = 13 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelPentiumMMX = 14 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelCeleron = 15 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelPentiumIIXeon = 16 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelPentiumIII = 17 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily M1 = 18 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily M2 = 19 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelCeleronM = 20 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelPentium4HT = 21 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily AmdDuron = 24 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily AmdK5 = 25 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily AmdK6 = 26 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily AmdK62 = 27 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily AmdK63 = 28 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily AmdAthlon = 29 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily Amd2900 = 30 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily AmdK62Plus = 31 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily PowerPc = 32 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily PowerPc601 = 33 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily PowerPc603 = 34 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily PowerPc603Plus = 35 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily PowerPc604 = 36 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily PowerPc620 = 37 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily PowerPcx704 = 38 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily PowerPc750 = 39 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelCoreDuo = 40 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelCoreDuoMobile = 41 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelCoreSoloMobile = 42 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelAtom = 43 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelCoreM = 44 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelCoreM3 = 45 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelCoreM5 = 46 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelCoreM7 = 47 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily Alpha = 48 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily Alpha21064 = 49 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily Alpha21066 = 50 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily Alpha21164 = 51 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily Alpha21164Pc = 52 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily Alpha21164a = 53 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily Alpha21264 = 54 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily Alpha21364 = 55 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily AmdTurionIIUltraDualCoreMobileM = 56 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily AmdTurionDualCoreMobileM = 57 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily AmdAthlonIIDualCoreM = 58 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily AmdOpteron6100Series = 59 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily AmdOpteron4100Series = 60 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily AmdOpteron6200Series = 61 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily AmdOpteron4200Series = 62 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily AmdFxSeries = 63 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily Mips = 64 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily MipsR4000 = 65 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily MipsR4200 = 66 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily MipsR4400 = 67 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily MipsR4600 = 68 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily MipsR10000 = 69 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily AmdCSeries = 70 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily AmdESeries = 71 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily AmdASeries = 72 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily AmdGSeries = 73 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily AmdZSeries = 74 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily AmdRSeries = 75 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily AmdOpteron4300Series = 76 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily AmdOpteron6300Series = 77 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily AmdOpteron3300Series = 78 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily AmdFireProSeries = 79 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily Sparc = 80 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily SuperSparc = 81 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily MicroSparcII = 82 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily MicroSparcIIep = 83 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily UltraSparc = 84 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily UltraSparcII = 85 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily UltraSparcIIi = 86 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily UltraSparcIII = 87 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily UltraSparcIIIi = 88 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily Motorola68040 = 96 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily Motorola68xxx = 97 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily Motorola68000 = 98 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily Motorola68010 = 99 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily Motorola68020 = 100 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily Motorola68030 = 101 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily AmdAthlonX4QuadCore = 102 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily AmdOpteronX1000Series = 103 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily AmdOpteronX2000Series = 104 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily AmdOpteronASeries = 105 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily AmdOpteronX3000Series = 106 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily AmdZen = 107 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily Hobbit = 112 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily CrusoeTm5000 = 120 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily CrusoeTm3000 = 121 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily EfficeonTm8000 = 122 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily Weitek = 128 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelItanium = 130 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily AmdAthlon64 = 131 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily AmdOpteron = 132 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily AmdSempron = 133 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily AmdTurio64Mobile = 134 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily AmdOpteronDualCore = 135 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily AmdAthlon64X2DualCore = 136 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily AmdTurion64X2Mobile = 137 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily AmdOpteronQuadCore = 138 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily AmdOpteronThirdGen = 139 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily AmdPhenomFXQuadCore = 140 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily AmdPhenomX4QuadCore = 141 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily AmdPhenomX2DualCore = 142 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily AmdAthlonX2DualCore = 143 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily PaRisc = 144 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily PaRisc8500 = 145 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily PaRisc8000 = 146 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily PaRisc7300LC = 147 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily PaRisc7200 = 148 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily PaRisc7100LC = 149 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily PaRisc7100 = 150 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily V30 = 160 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelXeon3200QuadCoreSeries = 161 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelXeon3000DualCoreSeries = 162 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelXeon5300QuadCoreSeries = 163 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelXeon5100DualCoreSeries = 164 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelXeon5000DualCoreSeries = 165 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelXeonLVDualCore = 166 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelXeonULVDualCore = 167 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelXeon7100Series = 168 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelXeon5400Series = 169 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelXeonQuadCore = 170 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelXeon5200DualCoreSeries = 171 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelXeon7200DualCoreSeries = 172 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelXeon7300QuadCoreSeries = 173 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelXeon7400QuadCoreSeries = 174 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelXeon7400MultiCoreSeries = 175 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelPentiumIIIXeon = 176 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelPentiumIIISpeedStep = 177 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelPentium4 = 178 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelXeon = 179 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily As400 = 180 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelXeonMP = 181 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily AmdAthlonXP = 182 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily AmdAthlonMP = 183 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelItanium2 = 184 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelPentiumM = 185 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelCeleronD = 186 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelPentiumD = 187 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelPentiumExtreme = 188 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelCoreSolo = 189 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelCore2Duo = 191 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelCore2Solo = 192 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelCore2Extreme = 193 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelCore2Quad = 194 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelCore2ExtremeMobile = 195 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelCore2DuoMobile = 196 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelCore2SoloMobile = 197 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelCoreI7 = 198 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelCeleronDualCore = 199 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily Ibm390 = 200 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily PowerPcG4 = 201 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily PowerPcG5 = 202 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily Esa390G6 = 203 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily ZArchitecture = 204 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelCoreI5 = 205 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelCoreI3 = 206 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelCoreI9 = 207 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily ViaC7M = 210 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily ViaC7D = 211 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily ViaC7 = 212 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily ViaEden = 213 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelXeonMultiCore = 214 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelXeon3xxxDualCoreSeries = 215 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelXeon3xxxQuadCoreSeries = 216 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily ViaNano = 217 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelXeon5xxxDualCoreSeries = 218 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelXeon5xxxQuadCoreSeries = 219 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelXeon7xxxDualCoreSeries = 221 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelXeon7xxxQuadCoreSeries = 222 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelXeon7xxxMultiCoreSeries = 223 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelXeon3400MultiCoreSeries = 224 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily AmdOpteron3000Series = 228 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily AmdSempronII = 229 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily AmdOpteronQuadCoreEmbedded = 230 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily AmdPhenomTripleCore = 231 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily AmdTurionUltraDualCoreMobile = 232 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily AmdTurionDualCoreMobile = 233 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily AmdTurionDualCore = 234 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily AmdAthlonDualCore = 235 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily AmdSempronSI = 236 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily AmdPhenomII = 237 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily AmdAthlonII = 238 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily AmdOpteronSixCore = 239 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily AmdSempronM = 240 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelI860 = 250 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily IntelI960 = 251 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily ArmV7 = 256 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily ArmV8 = 257 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily HitachiSh3 = 258 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily HitachiSh4 = 259 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily Arm = 260 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily StrongArm = 261 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily _686 = 262 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily MediaGX = 263 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily MII = 264 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily WinChip = 265 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily Dsp = 266 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorFamily VideoProcessor = 267 : Public, Static, Literal, HasDefault
+Struct LibreHardwareMonitor.Hardware.ProcessorType: AutoLayout, AnsiClass, Class, Public, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    LibreHardwareMonitor.Hardware.ProcessorType Other = 1 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorType Unknown = 2 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorType CentralProcessor = 3 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorType MathProcessor = 4 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorType DSPProcessor = 5 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorType VideoProcessor = 6 : Public, Static, Literal, HasDefault
+Struct LibreHardwareMonitor.Hardware.ProcessorSocket: AutoLayout, AnsiClass, Class, Public, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    LibreHardwareMonitor.Hardware.ProcessorSocket Other = 1 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorSocket Unknown = 2 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorSocket DaughterBoard = 3 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorSocket ZifSocket = 4 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorSocket PiggyBack = 5 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorSocket None = 6 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorSocket LifSocket = 7 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorSocket Zif423 = 13 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorSocket A = 14 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorSocket Zif478 = 15 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorSocket Zif754 = 16 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorSocket Zif940 = 17 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorSocket Zif939 = 18 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorSocket MPga604 = 19 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorSocket Lga771 = 20 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorSocket Lga775 = 21 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorSocket S1 = 22 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorSocket AM2 = 23 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorSocket F = 24 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorSocket Lga1366 = 25 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorSocket G34 = 26 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorSocket AM3 = 27 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorSocket C32 = 28 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorSocket Lga1156 = 29 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorSocket Lga1567 = 30 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorSocket Pga988A = 31 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorSocket Bga1288 = 32 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorSocket RPga088B = 33 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorSocket Bga1023 = 34 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorSocket Bga1224 = 35 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorSocket Lga1155 = 36 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorSocket Lga1356 = 37 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorSocket Lga2011 = 38 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorSocket FS1 = 39 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorSocket FS2 = 40 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorSocket FM1 = 41 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorSocket FM2 = 42 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorSocket Lga20113 = 43 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorSocket Lga13563 = 44 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorSocket Lga1150 = 45 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorSocket Bga1168 = 46 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorSocket Bga1234 = 47 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorSocket Bga1364 = 48 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorSocket AM4 = 49 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorSocket Lga1151 = 50 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorSocket Bga1356 = 51 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorSocket Bga1440 = 52 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorSocket Bga1515 = 53 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorSocket Lga36471 = 54 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorSocket SP3 = 55 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorSocket SP3R2 = 56 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorSocket Lga2066 = 57 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorSocket Bga1510 = 58 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorSocket Bga1528 = 59 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.ProcessorSocket Lga4189 = 60 : Public, Static, Literal, HasDefault
+Struct LibreHardwareMonitor.Hardware.SystemWakeUp: AutoLayout, AnsiClass, Class, Public, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    LibreHardwareMonitor.Hardware.SystemWakeUp Reserved = 0 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.SystemWakeUp Other = 1 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.SystemWakeUp Unknown = 2 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.SystemWakeUp ApmTimer = 3 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.SystemWakeUp ModemRing = 4 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.SystemWakeUp LanRemote = 5 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.SystemWakeUp PowerSwitch = 6 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.SystemWakeUp PciPme = 7 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.SystemWakeUp ACPowerRestored = 8 : Public, Static, Literal, HasDefault
+Struct LibreHardwareMonitor.Hardware.CacheDesignation: AutoLayout, AnsiClass, Class, Public, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    LibreHardwareMonitor.Hardware.CacheDesignation Other = 0 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.CacheDesignation L1 = 1 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.CacheDesignation L2 = 2 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.CacheDesignation L3 = 3 : Public, Static, Literal, HasDefault
+Struct LibreHardwareMonitor.Hardware.CacheAssociativity: AutoLayout, AnsiClass, Class, Public, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    LibreHardwareMonitor.Hardware.CacheAssociativity Other = 1 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.CacheAssociativity Unknown = 2 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.CacheAssociativity DirectMapped = 3 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.CacheAssociativity _2Way = 4 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.CacheAssociativity _4Way = 5 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.CacheAssociativity FullyAssociative = 6 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.CacheAssociativity _8Way = 7 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.CacheAssociativity _16Way = 8 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.CacheAssociativity _12Way = 9 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.CacheAssociativity _24Way = 10 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.CacheAssociativity _32Way = 11 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.CacheAssociativity _48Way = 12 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.CacheAssociativity _64Way = 13 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.CacheAssociativity _20Way = 14 : Public, Static, Literal, HasDefault
+Class LibreHardwareMonitor.Hardware.InformationBase: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+Class LibreHardwareMonitor.Hardware.BiosInformation: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :LibreHardwareMonitor.Hardware.InformationBase
+  Properties:
+    System.Nullable`1[System.DateTime] Date 'get ' : 
+    System.Nullable`1[System.UInt64] Size 'get ' : 
+    System.String Vendor 'get ' : 
+    System.String Version 'get ' : 
+  Methods:
+    get_Date(): PrivateScope, Public, HideBySig, SpecialName
+    get_Size(): PrivateScope, Public, HideBySig, SpecialName
+    get_Vendor(): PrivateScope, Public, HideBySig, SpecialName
+    get_Version(): PrivateScope, Public, HideBySig, SpecialName
+Class LibreHardwareMonitor.Hardware.SystemInformation: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :LibreHardwareMonitor.Hardware.InformationBase
+  Properties:
+    System.String Family 'get ' : 
+    System.String ManufacturerName 'get ' : 
+    System.String ProductName 'get ' : 
+    System.String SerialNumber 'get ' : 
+    System.String Version 'get ' : 
+    LibreHardwareMonitor.Hardware.SystemWakeUp WakeUp 'get ' : 
+  Methods:
+    get_Family(): PrivateScope, Public, HideBySig, SpecialName
+    get_ManufacturerName(): PrivateScope, Public, HideBySig, SpecialName
+    get_ProductName(): PrivateScope, Public, HideBySig, SpecialName
+    get_SerialNumber(): PrivateScope, Public, HideBySig, SpecialName
+    get_Version(): PrivateScope, Public, HideBySig, SpecialName
+    get_WakeUp(): PrivateScope, Public, HideBySig, SpecialName
+Class LibreHardwareMonitor.Hardware.ChassisInformation: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :LibreHardwareMonitor.Hardware.InformationBase
+  Properties:
+    System.String AssetTag 'get ' : 
+    LibreHardwareMonitor.Hardware.ChassisStates BootUpState 'get ' : 
+    LibreHardwareMonitor.Hardware.ChassisType ChassisType 'get ' : 
+    Boolean LockDetected 'get set' : 
+    System.String ManufacturerName 'get ' : 
+    Int32 PowerCords 'get ' : 
+    LibreHardwareMonitor.Hardware.ChassisStates PowerSupplyState 'get ' : 
+    Int32 RackHeight 'get ' : 
+    LibreHardwareMonitor.Hardware.ChassisSecurityStatus SecurityStatus 'get set' : 
+    System.String SerialNumber 'get ' : 
+    System.String SKU 'get ' : 
+    LibreHardwareMonitor.Hardware.ChassisStates ThermalState 'get ' : 
+    System.String Version 'get ' : 
+  Methods:
+    get_AssetTag(): PrivateScope, Public, HideBySig, SpecialName
+    get_BootUpState(): PrivateScope, Public, HideBySig, SpecialName
+    get_ChassisType(): PrivateScope, Public, HideBySig, SpecialName
+    get_LockDetected(): PrivateScope, Public, HideBySig, SpecialName
+    set_LockDetected(Boolean): PrivateScope, Public, HideBySig, SpecialName
+    get_ManufacturerName(): PrivateScope, Public, HideBySig, SpecialName
+    get_PowerCords(): PrivateScope, Public, HideBySig, SpecialName
+    get_PowerSupplyState(): PrivateScope, Public, HideBySig, SpecialName
+    get_RackHeight(): PrivateScope, Public, HideBySig, SpecialName
+    get_SecurityStatus(): PrivateScope, Public, HideBySig, SpecialName
+    set_SecurityStatus(ChassisSecurityStatus): PrivateScope, Public, HideBySig, SpecialName
+    get_SerialNumber(): PrivateScope, Public, HideBySig, SpecialName
+    get_SKU(): PrivateScope, Public, HideBySig, SpecialName
+    get_ThermalState(): PrivateScope, Public, HideBySig, SpecialName
+    get_Version(): PrivateScope, Public, HideBySig, SpecialName
+Class LibreHardwareMonitor.Hardware.BaseBoardInformation: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :LibreHardwareMonitor.Hardware.InformationBase
+  Properties:
+    System.String ManufacturerName 'get ' : 
+    System.String ProductName 'get ' : 
+    System.String SerialNumber 'get ' : 
+    System.String Version 'get ' : 
+  Methods:
+    get_ManufacturerName(): PrivateScope, Public, HideBySig, SpecialName
+    get_ProductName(): PrivateScope, Public, HideBySig, SpecialName
+    get_SerialNumber(): PrivateScope, Public, HideBySig, SpecialName
+    get_Version(): PrivateScope, Public, HideBySig, SpecialName
+Class LibreHardwareMonitor.Hardware.ProcessorInformation: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :LibreHardwareMonitor.Hardware.InformationBase
+  Properties:
+    Int32 CoreCount 'get ' : 
+    Int32 CoreEnabled 'get ' : 
+    Int32 ExternalClock 'get ' : 
+    Int32 MaxSpeed 'get ' : 
+    Int32 CurrentSpeed 'get ' : 
+    System.String Serial 'get ' : 
+    LibreHardwareMonitor.Hardware.ProcessorType ProcessorType 'get ' : 
+    LibreHardwareMonitor.Hardware.ProcessorSocket Socket 'get ' : 
+    LibreHardwareMonitor.Hardware.ProcessorFamily Family 'get ' : 
+    System.String SocketDesignation 'get ' : 
+    System.String ManufacturerName 'get ' : 
+    Int32 ThreadCount 'get ' : 
+    System.String Version 'get ' : 
+  Methods:
+    get_CoreCount(): PrivateScope, Public, HideBySig, SpecialName
+    get_CoreEnabled(): PrivateScope, Public, HideBySig, SpecialName
+    get_ExternalClock(): PrivateScope, Public, HideBySig, SpecialName
+    get_MaxSpeed(): PrivateScope, Public, HideBySig, SpecialName
+    get_CurrentSpeed(): PrivateScope, Public, HideBySig, SpecialName
+    get_Serial(): PrivateScope, Public, HideBySig, SpecialName
+    get_ProcessorType(): PrivateScope, Public, HideBySig, SpecialName
+    get_Socket(): PrivateScope, Public, HideBySig, SpecialName
+    get_Family(): PrivateScope, Public, HideBySig, SpecialName
+    get_SocketDesignation(): PrivateScope, Public, HideBySig, SpecialName
+    get_ManufacturerName(): PrivateScope, Public, HideBySig, SpecialName
+    get_ThreadCount(): PrivateScope, Public, HideBySig, SpecialName
+    get_Version(): PrivateScope, Public, HideBySig, SpecialName
+Class LibreHardwareMonitor.Hardware.ProcessorCache: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :LibreHardwareMonitor.Hardware.InformationBase
+  Properties:
+    LibreHardwareMonitor.Hardware.CacheDesignation Designation 'get ' : 
+    LibreHardwareMonitor.Hardware.CacheAssociativity Associativity 'get ' : 
+    Int32 Size 'get ' : 
+  Methods:
+    get_Designation(): PrivateScope, Public, HideBySig, SpecialName
+    get_Associativity(): PrivateScope, Public, HideBySig, SpecialName
+    get_Size(): PrivateScope, Public, HideBySig, SpecialName
+Class LibreHardwareMonitor.Hardware.MemoryDevice: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :LibreHardwareMonitor.Hardware.InformationBase
+  Properties:
+    System.String BankLocator 'get ' : 
+    System.String DeviceLocator 'get ' : 
+    System.String ManufacturerName 'get ' : 
+    System.String PartNumber 'get ' : 
+    System.String SerialNumber 'get ' : 
+    Int32 Speed 'get ' : 
+    Int32 Size 'get ' : 
+  Methods:
+    get_BankLocator(): PrivateScope, Public, HideBySig, SpecialName
+    get_DeviceLocator(): PrivateScope, Public, HideBySig, SpecialName
+    get_ManufacturerName(): PrivateScope, Public, HideBySig, SpecialName
+    get_PartNumber(): PrivateScope, Public, HideBySig, SpecialName
+    get_SerialNumber(): PrivateScope, Public, HideBySig, SpecialName
+    get_Speed(): PrivateScope, Public, HideBySig, SpecialName
+    get_Size(): PrivateScope, Public, HideBySig, SpecialName
+Class LibreHardwareMonitor.Hardware.SMBios: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    LibreHardwareMonitor.Hardware.BiosInformation Bios 'get ' : 
+    LibreHardwareMonitor.Hardware.BaseBoardInformation Board 'get ' : 
+    LibreHardwareMonitor.Hardware.ChassisInformation Chassis 'get ' : 
+    LibreHardwareMonitor.Hardware.MemoryDevice[] MemoryDevices 'get ' : 
+    LibreHardwareMonitor.Hardware.ProcessorCache[] ProcessorCaches 'get ' : 
+    LibreHardwareMonitor.Hardware.ProcessorInformation Processor 'get ' : 
+    LibreHardwareMonitor.Hardware.SystemInformation System 'get ' : 
+  Methods:
+    get_Bios(): PrivateScope, Public, HideBySig, SpecialName
+    get_Board(): PrivateScope, Public, HideBySig, SpecialName
+    get_Chassis(): PrivateScope, Public, HideBySig, SpecialName
+    get_MemoryDevices(): PrivateScope, Public, HideBySig, SpecialName
+    get_ProcessorCaches(): PrivateScope, Public, HideBySig, SpecialName
+    get_Processor(): PrivateScope, Public, HideBySig, SpecialName
+    get_System(): PrivateScope, Public, HideBySig, SpecialName
+    GetReport(): PrivateScope, Public, HideBySig
+Class LibreHardwareMonitor.Hardware.Storage.AbstractStorage: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  :LibreHardwareMonitor.Hardware.Hardware
+  Properties:
+    System.IO.DriveInfo[] DriveInfos 'get ' : 
+    System.String FirmwareRevision 'get ' : 
+    LibreHardwareMonitor.Hardware.HardwareType HardwareType 'get ' : 
+    Int32 Index 'get ' : 
+  Methods:
+    get_DriveInfos(): PrivateScope, Public, HideBySig, SpecialName
+    get_FirmwareRevision(): PrivateScope, Public, HideBySig, SpecialName
+    get_HardwareType(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    get_Index(): PrivateScope, Public, HideBySig, SpecialName
+    CreateInstance(String, UInt32, UInt64, Int32, ISettings): PrivateScope, Public, Static, HideBySig
+    Update(): PrivateScope, Public, Virtual, HideBySig
+    GetReport(): PrivateScope, Public, Virtual, HideBySig
+    Traverse(IVisitor): PrivateScope, Public, Virtual, HideBySig
+Class LibreHardwareMonitor.Hardware.Storage.AtaStorage: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  :LibreHardwareMonitor.Hardware.Storage.AbstractStorage
+  Properties:
+    LibreHardwareMonitor.Hardware.Storage.ISmart Smart 'get ' : 
+    System.Collections.Generic.IReadOnlyList`1[LibreHardwareMonitor.Hardware.Storage.SmartAttribute] SmartAttributes 'get ' : 
+  Methods:
+    get_Smart(): PrivateScope, Public, HideBySig, SpecialName
+    get_SmartAttributes(): PrivateScope, Public, HideBySig, SpecialName
+    Close(): PrivateScope, Public, Virtual, HideBySig
+Class LibreHardwareMonitor.Hardware.Storage.GenericHardDisk: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :LibreHardwareMonitor.Hardware.Storage.AtaStorage
+Interface LibreHardwareMonitor.Hardware.Storage.ISmart: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    System.IDisposable
+  Properties:
+    Boolean IsValid 'get ' : 
+  Methods:
+    get_IsValid(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    Close(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    EnableSmart(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    ReadSmartData(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    ReadSmartThresholds(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    ReadNameAndFirmwareRevision(String&(Out), String&(Out)): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class LibreHardwareMonitor.Hardware.Storage.NVMeGeneric: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :LibreHardwareMonitor.Hardware.Storage.AbstractStorage
+  Properties:
+    LibreHardwareMonitor.Hardware.Storage.NVMeSmart Smart 'get set' : 
+  Methods:
+    get_Smart(): PrivateScope, Public, HideBySig, SpecialName
+    Close(): PrivateScope, Public, Virtual, HideBySig
+Class LibreHardwareMonitor.Hardware.Storage.NVMeHealthInfo: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  Properties:
+    Byte AvailableSpare 'get set' : 
+    Byte AvailableSpareThreshold 'get set' : 
+    UInt64 ControllerBusyTime 'get set' : 
+    UInt32 CriticalCompositeTemperatureTime 'get set' : 
+    NVME_CRITICAL_WARNING CriticalWarning 'get set' : 
+    UInt64 DataUnitRead 'get set' : 
+    UInt64 DataUnitWritten 'get set' : 
+    UInt64 ErrorInfoLogEntryCount 'get set' : 
+    UInt64 HostReadCommands 'get set' : 
+    UInt64 HostWriteCommands 'get set' : 
+    UInt64 MediaErrors 'get set' : 
+    Byte PercentageUsed 'get set' : 
+    UInt64 PowerCycle 'get set' : 
+    UInt64 PowerOnHours 'get set' : 
+    Int16 Temperature 'get set' : 
+    Int16[] TemperatureSensors 'get set' : 
+    UInt64 UnsafeShutdowns 'get set' : 
+    UInt32 WarningCompositeTemperatureTime 'get set' : 
+  Methods:
+    get_AvailableSpare(): PrivateScope, Public, HideBySig, SpecialName
+    get_AvailableSpareThreshold(): PrivateScope, Public, HideBySig, SpecialName
+    get_ControllerBusyTime(): PrivateScope, Public, HideBySig, SpecialName
+    get_CriticalCompositeTemperatureTime(): PrivateScope, Public, HideBySig, SpecialName
+    get_CriticalWarning(): PrivateScope, Public, HideBySig, SpecialName
+    get_DataUnitRead(): PrivateScope, Public, HideBySig, SpecialName
+    get_DataUnitWritten(): PrivateScope, Public, HideBySig, SpecialName
+    get_ErrorInfoLogEntryCount(): PrivateScope, Public, HideBySig, SpecialName
+    get_HostReadCommands(): PrivateScope, Public, HideBySig, SpecialName
+    get_HostWriteCommands(): PrivateScope, Public, HideBySig, SpecialName
+    get_MediaErrors(): PrivateScope, Public, HideBySig, SpecialName
+    get_PercentageUsed(): PrivateScope, Public, HideBySig, SpecialName
+    get_PowerCycle(): PrivateScope, Public, HideBySig, SpecialName
+    get_PowerOnHours(): PrivateScope, Public, HideBySig, SpecialName
+    get_Temperature(): PrivateScope, Public, HideBySig, SpecialName
+    get_TemperatureSensors(): PrivateScope, Public, HideBySig, SpecialName
+    get_UnsafeShutdowns(): PrivateScope, Public, HideBySig, SpecialName
+    get_WarningCompositeTemperatureTime(): PrivateScope, Public, HideBySig, SpecialName
+Class LibreHardwareMonitor.Hardware.Storage.NVMeInfo: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  Properties:
+    UInt16 ControllerId 'get set' : 
+    Byte[] IEEE 'get set' : 
+    Int32 Index 'get set' : 
+    System.String Model 'get set' : 
+    UInt32 NumberNamespaces 'get set' : 
+    System.String Revision 'get set' : 
+    System.String Serial 'get set' : 
+    UInt16 SSVID 'get set' : 
+    UInt64 TotalCapacity 'get set' : 
+    UInt64 UnallocatedCapacity 'get set' : 
+    UInt16 VID 'get set' : 
+  Methods:
+    get_ControllerId(): PrivateScope, Public, HideBySig, SpecialName
+    get_IEEE(): PrivateScope, Public, HideBySig, SpecialName
+    get_Index(): PrivateScope, Public, HideBySig, SpecialName
+    get_Model(): PrivateScope, Public, HideBySig, SpecialName
+    get_NumberNamespaces(): PrivateScope, Public, HideBySig, SpecialName
+    get_Revision(): PrivateScope, Public, HideBySig, SpecialName
+    get_Serial(): PrivateScope, Public, HideBySig, SpecialName
+    get_SSVID(): PrivateScope, Public, HideBySig, SpecialName
+    get_TotalCapacity(): PrivateScope, Public, HideBySig, SpecialName
+    get_UnallocatedCapacity(): PrivateScope, Public, HideBySig, SpecialName
+    get_VID(): PrivateScope, Public, HideBySig, SpecialName
+Class LibreHardwareMonitor.Hardware.Storage.NVMeSmart: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Interfaces:
+    System.IDisposable
+  Properties:
+    Boolean IsValid 'get ' : 
+  Methods:
+    get_IsValid(): PrivateScope, Public, HideBySig, SpecialName
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    Close(): PrivateScope, Public, HideBySig
+    GetInfo(): PrivateScope, Public, HideBySig
+    GetHealthInfo(): PrivateScope, Public, HideBySig
+Class LibreHardwareMonitor.Hardware.Storage.SmartAttribute: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(Byte, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Byte, System.String, RawValueConversion): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Byte, System.String, RawValueConversion, System.Nullable`1[LibreHardwareMonitor.Hardware.SensorType], Int32, System.String, Boolean, LibreHardwareMonitor.Hardware.ParameterDescription[]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Boolean DefaultHiddenSensor 'get ' : 
+    Boolean HasRawValueConversion 'get ' : 
+    Byte Id    'get ' : 
+    System.String Name 'get ' : 
+    LibreHardwareMonitor.Hardware.ParameterDescription[] ParameterDescriptions 'get ' : 
+    Int32 SensorChannel 'get ' : 
+    System.String SensorName 'get ' : 
+    System.Nullable`1[LibreHardwareMonitor.Hardware.SensorType] SensorType 'get ' : 
+  Methods:
+    get_DefaultHiddenSensor(): PrivateScope, Public, HideBySig, SpecialName
+    get_HasRawValueConversion(): PrivateScope, Public, HideBySig, SpecialName
+    get_Id(): PrivateScope, Public, HideBySig, SpecialName
+    get_Name(): PrivateScope, Public, HideBySig, SpecialName
+    get_ParameterDescriptions(): PrivateScope, Public, HideBySig, SpecialName
+    get_SensorChannel(): PrivateScope, Public, HideBySig, SpecialName
+    get_SensorName(): PrivateScope, Public, HideBySig, SpecialName
+    get_SensorType(): PrivateScope, Public, HideBySig, SpecialName
+Class LibreHardwareMonitor.Hardware.Storage.SmartNames: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Properties:
+    System.String AirflowTemperature 'get ' : 
+    System.String AlternativeEraseFailCount 'get ' : 
+    System.String AlternativeGSenseErrorRate 'get ' : 
+    System.String AlternativeProgramFailCount 'get ' : 
+    System.String AvailableReservedSpace 'get ' : 
+    System.String AverageEraseCount 'get ' : 
+    System.String BadBlockFullFlag 'get ' : 
+    System.String BitErrors 'get ' : 
+    System.String CalibrationRetryCount 'get ' : 
+    System.String CommandTimeout 'get ' : 
+    System.String ControllerWritesToNand 'get ' : 
+    System.String CorrectedErrors 'get ' : 
+    System.String CrcErrorCount 'get ' : 
+    System.String CurrentPendingSectorCount 'get ' : 
+    System.String DataAddressMarkErrors 'get ' : 
+    System.String DiskShift 'get ' : 
+    System.String DriveTemperature 'get ' : 
+    System.String EccRate 'get ' : 
+    System.String EmergencyRetractCycleCount 'get ' : 
+    System.String EndToEndError 'get ' : 
+    System.String EnduranceRemaining 'get ' : 
+    System.String EraseFailCount 'get ' : 
+    System.String EraseFailCountChip 'get ' : 
+    System.String EraseFailCountTotal 'get ' : 
+    System.String EraseFailure 'get ' : 
+    System.String ErrorCorrectionCount 'get ' : 
+    System.String ExceptionModeStatus 'get ' : 
+    System.String FactoryBadBlockCount 'get ' : 
+    System.String FlyingHeight 'get ' : 
+    System.String FreeFallProtection 'get ' : 
+    System.String FTLProgramNANDPagesCount 'get ' : 
+    System.String GmrHeadAmplitude 'get ' : 
+    System.String GSenseErrorRate 'get ' : 
+    System.String HardwareEccRecovered 'get ' : 
+    System.String HeadFlyingHours 'get ' : 
+    System.String HeadStability 'get ' : 
+    System.String HighFlyWrites 'get ' : 
+    System.String HostProgramNANDPagesCount 'get ' : 
+    System.String HostReads 'get ' : 
+    System.String HostWrites 'get ' : 
+    System.String HostWritesToController 'get ' : 
+    System.String InducedOpVibrationDetection 'get ' : 
+    System.String InitialBadBlockCount 'get ' : 
+    System.String LoadCycleCount 'get ' : 
+    System.String LoadedHours 'get ' : 
+    System.String LoadFriction 'get ' : 
+    System.String LoadInTime 'get ' : 
+    System.String LoadUnloadCycleCount 'get ' : 
+    System.String LoadUnloadCycleCountFujitsu 'get ' : 
+    System.String LoadUnloadRetryCount 'get ' : 
+    System.String MaxCellCycles 'get ' : 
+    System.String MaxErase 'get ' : 
+    System.String MediaWearOutIndicator 'get ' : 
+    System.String MinErase 'get ' : 
+    System.String MultiZoneErrorRate 'get ' : 
+    System.String NewFailingBlockCount 'get ' : 
+    System.String Non4KAlignedAccess 'get ' : 
+    System.String OfflineSeekPerformance 'get ' : 
+    System.String OffLineUncorrectableErrorCount 'get ' : 
+    System.String PowerCycleCount 'get ' : 
+    System.String PowerOffRetractCycle 'get ' : 
+    System.String PowerOnHours 'get ' : 
+    System.String PowerRecoveryCount 'get ' : 
+    System.String ProgramFailCount 'get ' : 
+    System.String ProgramFailCountChip 'get ' : 
+    System.String ProgramFailCountTotal 'get ' : 
+    System.String ProgramFailure 'get ' : 
+    System.String RawReadErrorRate 'get ' : 
+    System.String ReadChannelMargin 'get ' : 
+    System.String ReadCommands 'get ' : 
+    System.String ReadErrorRate 'get ' : 
+    System.String ReadErrorRetryRate 'get ' : 
+    System.String ReadFailure 'get ' : 
+    System.String ReallocatedNANDBlockCount 'get ' : 
+    System.String ReallocatedSectorsCount 'get ' : 
+    System.String ReallocationEventCount 'get ' : 
+    System.String RecalibrationRetries 'get ' : 
+    System.String RemainingLife 'get ' : 
+    System.String ReportedUncorrectableErrors 'get ' : 
+    System.String RetiredBlockCount 'get ' : 
+    System.String RunOutCancel 'get ' : 
+    System.String RuntimeBadBlockTotal 'get ' : 
+    System.String SataDownshiftErrorCount 'get ' : 
+    System.String SataErrorCountCrc 'get ' : 
+    System.String SataErrorCountHandshake 'get ' : 
+    System.String SectorsRead 'get ' : 
+    System.String SectorsWritten 'get ' : 
+    System.String SeekErrorRate 'get ' : 
+    System.String SeekTimePerformance 'get ' : 
+    System.String ShockDuringWrite 'get ' : 
+    System.String SoftEccCorrection 'get ' : 
+    System.String SoftReadErrorRate 'get ' : 
+    System.String SpinBuzz 'get ' : 
+    System.String SpinHighCurrent 'get ' : 
+    System.String SpinRetryCount 'get ' : 
+    System.String SpinUpTime 'get ' : 
+    System.String StartStopCount 'get ' : 
+    System.String SuccessfulRAINRecoveryCount 'get ' : 
+    System.String SupercapStatus 'get ' : 
+    System.String TaCounterDetected 'get ' : 
+    System.String Temperature 'get ' : 
+    System.String TemperatureDifferenceFrom100 'get ' : 
+    System.String TemperatureExceedCount 'get ' : 
+    System.String ThermalAsperityRate 'get ' : 
+    System.String ThroughputPerformance 'get ' : 
+    System.String TorqueAmplificationCount 'get ' : 
+    System.String TotalLbasRead 'get ' : 
+    System.String TotalLbasWritten 'get ' : 
+    System.String TransferErrorRate 'get ' : 
+    System.String UltraDmaCrcErrorCount 'get ' : 
+    System.String UncorrectableErrorCount 'get ' : 
+    System.String UncorrectableSectorCount 'get ' : 
+    System.String UnexpectedPowerLossCount 'get ' : 
+    System.String Unknown 'get ' : 
+    System.String UnknownUnique 'get ' : 
+    System.String UnrecoverableEcc 'get ' : 
+    System.String UnsafeShutdownCount 'get ' : 
+    System.String UnusedReserveNANDBlocks 'get ' : 
+    System.String UsedReservedBlockCountChip 'get ' : 
+    System.String UsedReservedBlockCountTotal 'get ' : 
+    System.String VibrationDuringWrite 'get ' : 
+    System.String WearLevelingCount 'get ' : 
+    System.String WearRangeDelta 'get ' : 
+    System.String WriteCommands 'get ' : 
+    System.String WriteErrorRate 'get ' : 
+  Methods:
+    get_SectorsRead(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_SectorsWritten(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_SeekErrorRate(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_SeekTimePerformance(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ShockDuringWrite(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_SoftEccCorrection(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_SoftReadErrorRate(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_SpinBuzz(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_SpinHighCurrent(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_SpinRetryCount(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_SpinUpTime(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_StartStopCount(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_SuccessfulRAINRecoveryCount(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_SupercapStatus(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_TaCounterDetected(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_Temperature(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_TemperatureDifferenceFrom100(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_TemperatureExceedCount(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ThermalAsperityRate(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ThroughputPerformance(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_TorqueAmplificationCount(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_TotalLbasRead(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_TotalLbasWritten(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_TransferErrorRate(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_UltraDmaCrcErrorCount(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_UncorrectableErrorCount(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_UncorrectableSectorCount(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_UnexpectedPowerLossCount(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_Unknown(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_UnknownUnique(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_UnrecoverableEcc(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_UnsafeShutdownCount(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_UnusedReserveNANDBlocks(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_UsedReservedBlockCountChip(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_UsedReservedBlockCountTotal(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_VibrationDuringWrite(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_WearLevelingCount(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_WearRangeDelta(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_WriteCommands(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_WriteErrorRate(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_AirflowTemperature(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_AlternativeEraseFailCount(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_AlternativeGSenseErrorRate(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_AlternativeProgramFailCount(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_AvailableReservedSpace(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_AverageEraseCount(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_BadBlockFullFlag(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_BitErrors(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_CalibrationRetryCount(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_CommandTimeout(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ControllerWritesToNand(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_CorrectedErrors(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_CrcErrorCount(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_CurrentPendingSectorCount(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_DataAddressMarkErrors(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_DiskShift(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_DriveTemperature(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_EccRate(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_EmergencyRetractCycleCount(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_EndToEndError(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_EnduranceRemaining(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_EraseFailCount(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_EraseFailCountChip(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_EraseFailCountTotal(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_EraseFailure(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ErrorCorrectionCount(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionModeStatus(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_FactoryBadBlockCount(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_FlyingHeight(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_FreeFallProtection(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_FTLProgramNANDPagesCount(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_GmrHeadAmplitude(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_GSenseErrorRate(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_HardwareEccRecovered(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_HeadFlyingHours(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_HeadStability(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_HighFlyWrites(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_HostProgramNANDPagesCount(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_HostReads(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_HostWrites(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_HostWritesToController(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_InducedOpVibrationDetection(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_InitialBadBlockCount(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_LoadCycleCount(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_LoadedHours(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_LoadFriction(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_LoadInTime(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_LoadUnloadCycleCount(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_LoadUnloadCycleCountFujitsu(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_LoadUnloadRetryCount(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_MaxCellCycles(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_MaxErase(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_MediaWearOutIndicator(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_MinErase(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_MultiZoneErrorRate(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_NewFailingBlockCount(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_Non4KAlignedAccess(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_OfflineSeekPerformance(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_OffLineUncorrectableErrorCount(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_PowerCycleCount(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_PowerOffRetractCycle(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_PowerOnHours(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_PowerRecoveryCount(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ProgramFailCount(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ProgramFailCountChip(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ProgramFailCountTotal(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ProgramFailure(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_RawReadErrorRate(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ReadChannelMargin(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ReadCommands(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ReadErrorRate(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ReadErrorRetryRate(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ReadFailure(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ReallocatedNANDBlockCount(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ReallocatedSectorsCount(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ReallocationEventCount(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_RecalibrationRetries(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_RemainingLife(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ReportedUncorrectableErrors(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_RetiredBlockCount(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_RunOutCancel(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_RuntimeBadBlockTotal(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_SataDownshiftErrorCount(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_SataErrorCountCrc(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_SataErrorCountHandshake(): PrivateScope, Public, Static, HideBySig, SpecialName
+Class LibreHardwareMonitor.Hardware.Motherboard.Motherboard: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(LibreHardwareMonitor.Hardware.SMBios, LibreHardwareMonitor.Hardware.ISettings): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    LibreHardwareMonitor.Hardware.IHardware
+    LibreHardwareMonitor.Hardware.IElement
+  Properties:
+    LibreHardwareMonitor.Hardware.HardwareType HardwareType 'get ' : 
+    LibreHardwareMonitor.Hardware.Identifier Identifier 'get ' : 
+    System.String Name 'get set' : 
+    LibreHardwareMonitor.Hardware.IHardware Parent 'get ' : 
+    LibreHardwareMonitor.Hardware.ISensor[] Sensors 'get ' : 
+    LibreHardwareMonitor.Hardware.SMBios SMBios 'get ' : 
+    LibreHardwareMonitor.Hardware.IHardware[] SubHardware 'get ' : 
+  Events:
+    LibreHardwareMonitor.Hardware.SensorEventHandler SensorAdded: 
+    LibreHardwareMonitor.Hardware.SensorEventHandler SensorRemoved: 
+  Methods:
+    get_HardwareType(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_Identifier(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_Name(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    set_Name(String): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_Parent(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_Sensors(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_SMBios(): PrivateScope, Public, HideBySig, SpecialName
+    get_SubHardware(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    GetReport(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    Update(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    Accept(IVisitor): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    Traverse(IVisitor): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    add_SensorAdded(SensorEventHandler): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    remove_SensorAdded(SensorEventHandler): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    add_SensorRemoved(SensorEventHandler): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    remove_SensorRemoved(SensorEventHandler): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    Close(): PrivateScope, Public, HideBySig
+Struct LibreHardwareMonitor.Hardware.CPU.Vendor: AutoLayout, AnsiClass, Class, Public, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    LibreHardwareMonitor.Hardware.CPU.Vendor Unknown = 0 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.CPU.Vendor Intel = 1 : Public, Static, Literal, HasDefault
+    LibreHardwareMonitor.Hardware.CPU.Vendor AMD = 2 : Public, Static, Literal, HasDefault
+Class LibreHardwareMonitor.Hardware.CPU.CpuId: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Fields:
+    UInt32 CPUID_0 = 0 : Public, Static, Literal, HasDefault
+    UInt32 CPUID_EXT = 2147483648 : Public, Static, Literal, HasDefault
+  Properties:
+    LibreHardwareMonitor.Hardware.GroupAffinity Affinity 'get ' : 
+    UInt32 ApicId 'get ' : 
+    System.String BrandString 'get ' : 
+    UInt32 CoreId 'get ' : 
+    UInt32[,] Data 'get ' : 
+    UInt32[,] ExtData 'get ' : 
+    UInt32 Family 'get ' : 
+    Int32 Group 'get ' : 
+    UInt32 Model 'get ' : 
+    System.String Name 'get ' : 
+    UInt32 ProcessorId 'get ' : 
+    UInt32 Stepping 'get ' : 
+    Int32 Thread 'get ' : 
+    UInt32 ThreadId 'get ' : 
+    LibreHardwareMonitor.Hardware.CPU.Vendor Vendor 'get ' : 
+  Methods:
+    get_Affinity(): PrivateScope, Public, HideBySig, SpecialName
+    get_ApicId(): PrivateScope, Public, HideBySig, SpecialName
+    get_BrandString(): PrivateScope, Public, HideBySig, SpecialName
+    get_CoreId(): PrivateScope, Public, HideBySig, SpecialName
+    get_Data(): PrivateScope, Public, HideBySig, SpecialName
+    get_ExtData(): PrivateScope, Public, HideBySig, SpecialName
+    get_Family(): PrivateScope, Public, HideBySig, SpecialName
+    get_Group(): PrivateScope, Public, HideBySig, SpecialName
+    get_Model(): PrivateScope, Public, HideBySig, SpecialName
+    get_Name(): PrivateScope, Public, HideBySig, SpecialName
+    get_ProcessorId(): PrivateScope, Public, HideBySig, SpecialName
+    get_Stepping(): PrivateScope, Public, HideBySig, SpecialName
+    get_Thread(): PrivateScope, Public, HideBySig, SpecialName
+    get_ThreadId(): PrivateScope, Public, HideBySig, SpecialName
+    get_Vendor(): PrivateScope, Public, HideBySig, SpecialName
+    Get(Int32, Int32): PrivateScope, Public, Static, HideBySig
+Class LibreHardwareMonitor.Hardware.CPU.GenericCpu: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :LibreHardwareMonitor.Hardware.Hardware
+    Void .ctor(Int32, LibreHardwareMonitor.Hardware.CPU.CpuId[][], LibreHardwareMonitor.Hardware.ISettings): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    LibreHardwareMonitor.Hardware.CPU.CpuId[][] CpuId 'get ' : 
+    LibreHardwareMonitor.Hardware.HardwareType HardwareType 'get ' : 
+    Boolean HasModelSpecificRegisters 'get ' : 
+    Boolean HasTimeStampCounter 'get ' : 
+    Double TimeStampCounterFrequency 'get set' : 
+  Methods:
+    get_CpuId(): PrivateScope, Public, HideBySig, SpecialName
+    get_HardwareType(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    get_HasModelSpecificRegisters(): PrivateScope, Public, HideBySig, SpecialName
+    get_HasTimeStampCounter(): PrivateScope, Public, HideBySig, SpecialName
+    get_TimeStampCounterFrequency(): PrivateScope, Public, HideBySig, SpecialName
+    GetReport(): PrivateScope, Public, Virtual, HideBySig
+    Update(): PrivateScope, Public, Virtual, HideBySig
+Class LibreHardwareMonitor.Hardware.Controller.AquaComputer.AquaComputerGroup: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(LibreHardwareMonitor.Hardware.ISettings): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    LibreHardwareMonitor.Hardware.IGroup
+  Properties:
+    System.Collections.Generic.IReadOnlyList`1[LibreHardwareMonitor.Hardware.IHardware] Hardware 'get ' : 
+  Methods:
+    get_Hardware(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    Close(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    GetReport(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class LibreHardwareMonitor.Hardware.Controller.AeroCool.AeroCoolGroup: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(LibreHardwareMonitor.Hardware.ISettings): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    LibreHardwareMonitor.Hardware.IGroup
+  Properties:
+    System.Collections.Generic.IReadOnlyList`1[LibreHardwareMonitor.Hardware.IHardware] Hardware 'get ' : 
+  Methods:
+    get_Hardware(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    Close(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    GetReport(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Struct LibreHardwareMonitor.Interop.Kernel32+NVME_CRITICAL_WARNING: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    NVME_CRITICAL_WARNING None = 0 : Public, Static, Literal, HasDefault
+    NVME_CRITICAL_WARNING AvailableSpaceLow = 1 : Public, Static, Literal, HasDefault
+    NVME_CRITICAL_WARNING TemperatureThreshold = 2 : Public, Static, Literal, HasDefault
+    NVME_CRITICAL_WARNING ReliabilityDegraded = 4 : Public, Static, Literal, HasDefault
+    NVME_CRITICAL_WARNING ReadOnly = 8 : Public, Static, Literal, HasDefault
+    NVME_CRITICAL_WARNING VolatileMemoryBackupDeviceFailed = 16 : Public, Static, Literal, HasDefault
+Struct LibreHardwareMonitor.Interop.Kernel32+GROUP_AFFINITY: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+  Fields:
+    UIntPtr Mask : Public
+    UInt16 Group : Public, HasFieldMarshal
+    UInt16[] Reserved : Public, HasFieldMarshal
+Struct LibreHardwareMonitor.Interop.Kernel32+SMART_ATTRIBUTE: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+  Fields:
+    Byte Id : Public
+    Int16 Flags : Public
+    Byte CurrentValue : Public
+    Byte WorstValue : Public
+    Byte[] RawValue : Public, HasFieldMarshal
+    Byte Reserved : Public
+Struct LibreHardwareMonitor.Interop.Kernel32+SMART_THRESHOLD: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+  Fields:
+    Byte Id : Public
+    Byte Threshold : Public
+    Byte[] Reserved : Public, HasFieldMarshal
+Class LibreHardwareMonitor.Hardware.Storage.SmartAttribute+RawValueConversion: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Invoke(Byte[], Byte, IReadOnlyList`1): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    BeginInvoke(Byte[], Byte, IReadOnlyList`1, AsyncCallback, Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask

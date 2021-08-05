@@ -1,0 +1,311 @@
+///////////////////////////////////////////
+// IMPORTANT NOTES:
+//  - Indent each section with [tab], not spacespam.
+//  - Do NOT use [tab] anywhere besides indentation and inside comments
+//  - In all sections anything separated by a space is treated as a different argument. The only exception is the strings section, where everything after the name of the string is treated as a single argument.
+///////////////////////////////////////////
+
+//Here you can associate a name to any sensor. Additionally, you can associate two already declared sensors to be merged into one. (see "ram_tot")
+sensors        //sensor id
+	//Processor
+	cpu_load    /amdcpu/0/load/0
+	cpu_temp    /amdcpu/0/temperature/2
+	cpu_fan     /lpc/it8688e/fan/0
+	ram_load    /ram/load/0
+	ram_used    /ram/data/0
+	ram_free    /ram/data/1
+	ram_tot     @sensors/ram_used/default @sensors/ram_free/default
+	cpu_core_1  /amdcpu/0/load/1
+	cpu_core_2  /amdcpu/0/load/2
+	cpu_core_3  /amdcpu/0/load/3
+	cpu_core_4  /amdcpu/0/load/4
+	cpu_core_5  /amdcpu/0/load/5
+	cpu_core_6  /amdcpu/0/load/6
+	cpu_core_7  /amdcpu/0/load/7
+	cpu_core_8  /amdcpu/0/load/8
+	cpu_core_9  /amdcpu/0/load/9
+	cpu_core_10 /amdcpu/0/load/10
+	cpu_core_11 /amdcpu/0/load/11
+	cpu_core_12 /amdcpu/0/load/12
+	cpu_core_13 /amdcpu/0/load/13
+	cpu_core_14 /amdcpu/0/load/14
+	cpu_core_15 /amdcpu/0/load/15
+	cpu_core_16 /amdcpu/0/load/16
+	
+	//Graphics Card
+	gpu_load         /gpu-nvidia/0/load/0
+	gpu_temp         /gpu-nvidia/0/temperature/0
+	gpu_fan          /gpu-nvidia/0/control/0
+	gpu_vram_load    /gpu-nvidia/0/load/3
+	gpu_vram_used    /gpu-nvidia/0/smalldata/2
+	gpu_vram_tot     /gpu-nvidia/0/smalldata/3
+	
+//Here you can associate a name to an rgba color. "window" and "graphicsbg" will overwrite the default window background and graphics background respectively.
+colors          //red green blue alpha
+	window         0     0    0  255
+	graphicsbg    32    32   32  255
+	graphicsfg   255   255  255  255
+	load           0   255    0
+	temperature  255     0    0
+	smallload      0   200  180
+	fan          100   100  250
+	ram          255   255    0
+	subtlegrey    30    30   30
+	
+
+//Here you can decide some global settings
+settings
+	update_delay 1                         //Time between each sensors update in milliseconds
+	window_bg    @colors/window/default      //Default window background colour
+	graphics_bg  @colors/graphicsbg/default  //Default graphs background colour
+	graphics_fg  @colors/graphicsfg/default  //Default graphs foreground colour
+
+// Time to build the UI. 
+/////////////////////////////////////////// Parameters notes (where "x" can be any of the other paramters):
+//
+//	#               < means the parameter is a number.
+//  +#              < means the parameter is a positive number.
+// (string)         < means the parameter is a string.
+// R                < means the parameter is a number between 0 and 255.
+// G                < means the parameter is a number between 0 and 255.
+// B                < means the parameter is a number between 0 and 255.
+// A                < means the parameter is a number between 0 and 255.
+// [x]              < means the parameter x is optional.
+// x | x | x        < means the parameter must be one of the xs separated by |s.
+//
+// A parameter is not required unless specified in the description
+
+/////////////////////////////////////////// UI ELEMENTS EXPLANATION
+//
+//ui
+//	root of the ui
+//
+//window
+//	inside ui, identifies a window
+//	A note on transparencies: the "transparent" option will add some opacity to whatever color you're using as background for the window. Even a fully transparent color definition will still result in a slightly opaque background.
+//	The "glass" option will use exactly the given color including its transparency and will blur whatever is behind the window.
+//	
+//	ARGUMENTS
+//		size: +# +#                            < 2 positive numbers representing width and height.
+//		position: # #                          < 2 numbers representing x and y coordinates on screen.
+//		color: R G B [A]                       < 3 or 4 values representing an RGB or RGBA color.
+//		title: #                               < text appearing as window title.
+//		transparency: no | glass | transparent < "glass" and "transparent" have higher resources requirements.
+//		borders: true | false                  < use false for a borderless window.
+//
+//vertical & horizontal
+//	Represent groups of other elements. Can contain other vertical and horizontal groups. They are responsible for scaling and moving ui elements during resizing.
+//	Horizontal groups can specify vertical alignments for their content, vertical groups can specify horizontal alignments.
+//	
+//	ARGUMENTS
+//		halign: left | center | right          < horizontal alignment.
+//		valign: top  | middle | bottom         < vertical alignment.
+//
+//size_wrapper
+//	Wraps a single element (which can be a vertical/horizontal group containing more elements)
+//	Its purpose is to specify constraints in the size of the content during window resizing.
+//
+//	ARGUMENTS
+//		width_min: #                           < 1 positive number representing the minimum/maximum width/height of the wrapped element
+//		width_max: #                           < 1 positive number representing the minimum/maximum width/height of the wrapped element
+//		height_min: #                          < 1 positive number representing the minimum/maximum width/height of the wrapped element
+//		height_max: #                          < 1 positive number representing the minimum/maximum width/height of the wrapped element
+//
+//spacer
+//	Empty space used to spread other elements apart. By default it is treated as having infinite maximum sizes, so the available space will be spread eavenly across spacers.
+//
+//	ARGUMENTS
+//		width_min: #                           < 1 positive number representing the minimum/maximum width/height of the wrapped element
+//		width_max: #                           < 1 positive number representing the minimum/maximum width/height of the wrapped element
+//		height_min: #                          < 1 positive number representing the minimum/maximum width/height of the wrapped element
+//		height_max: #                          < 1 positive number representing the minimum/maximum width/height of the wrapped element
+//
+//separator
+//	Must be inside a vertical or horizontal. Will draw rispectively an horizontal or vertical line. It has no padding, so use spacers before and after if you want some padding.
+//
+//text
+//	Draws a text.
+//	
+//	ARGUMENTS
+//		(string)                               < REQUIRED a string representing the text to draw
+//	
+//reading
+//	Draws readings as numbers. 
+//	With one sensor draws like this:              label                  value
+//	With two sensors draws like this:             label          value1/value2
+//  With three sensors draws like this:           label  value3  value1/value2
+//
+//  Values measurement unit is automatically generated. An example could be ram in the following structure:
+//
+//                                                Ram    usage %  used GB / available GB
+//
+//	ARGUMENTS
+//		label: (string)                        < REQUIRED a string representing the text to draw
+//		sensor: (string)                       < REQUIRED the path to the sensor to represent
+//		sensor2: (string)                      < the path to the sensor to represent
+//      sensor3: (string)                      < the path to the sensor to represent
+//
+//line
+//	Draws readings as a line which gets progressively filled up to a maximum value. The default maximum is 100 (which makes already sense for temperatures and percentages). 
+//	The size is determined by the available space, it is suggested to put inside a size wrapper. The filling is horizontal or vertical depending on the size. Will always be on the largest direction.
+// 
+//	ARGUMENTS
+//		sensor: (string)                       < REQUIRED the path to the sensor to represent
+//		color: R G B [A]                       < the color of the filled area.
+//		lower: #                               < any reading at or under this value will represent an empty area.
+//      upper: #                               < any reading at or above this value will represent a filled area.
+//
+//plot
+//	A container for plots
+//	
+// ARGUMENTS
+//		color: R G B [A]                       < the color used for the plot's grid
+//
+// !!!!!!!!!!!!!!!!!!!!THE FOLLOWING ELEMENTS MUST BE INSIDE A PLOT!!!!!!!!!!!!!!!!!!!!
+//
+//plot_line
+//	A line plotting a sensor over time.
+//
+//	ARGUMENTS
+//		sensor: (string)                       < REQUIRED the path to the sensor to represent                  
+//      color: R G B [A]                       < the color of the plotted line
+//		min: #                                 < any reading at or under this value will send the plot to the lowest y coordinate.
+//      max: #                                 < any reading at or above this value will send the plot to the highest y coordinate.
+//
+//plot_mountain
+//	A line plotting a sensor over time. All the area under the line is filled of the same color.
+//
+//	ARGUMENTS
+//		sensor: (string)                       < REQUIRED the path to the sensor to represent                  
+//      color: R G B [A]                       < the color of the plotted line
+//		min: #                                 < any reading at or under this value will send the plot to the lowest y coordinate.
+//      max: #                                 < any reading at or above this value will send the plot to the highest y coordinate.
+//		fade: true | false                     < Instead of filling the whole area, will draw a line of the given color and gradually fade that color to full transparency under the line.
+//
+
+ui
+	window size: 749 728 position: -750 663 color: 30 0 0 200 title: "AMD Ryzen 7 3800X" transparency: glass borders: false
+		vertical
+			spacer height_min: 2 height_max: 4
+			size_wrapper width_max: 512
+				horizontal
+					spacer width_min: 2 width_max: 4
+					vertical
+						reading label: "Usage" sensor: @sensors/cpu_load/default 
+						reading label: "Temp"  sensor: @sensors/cpu_temp/default
+					spacer width_min: 2 width_max: 4
+					separator
+					spacer width_min: 2 width_max: 4
+					vertical
+						reading label: "Fan"   sensor: @sensors/cpu_fan/default
+						reading label: "RAM"   sensor: @sensors/ram_load/default sensor2: @sensors/ram_used/default sensor3: @sensors/ram_tot/default 
+					spacer width_min: 2 width_max: 4
+			spacer height_min: 2 height_max: 4
+			horizontal
+				spacer width_min: 2 width_max: 4
+				size_wrapper halign: left width_max: 128
+					vertical halign: left
+						spacer height_min: 2 height_max: 4
+						reading label: "Core  1" sensor: @sensors/cpu_core_1/default
+						size_wrapper height_max: 2 height_min: 2
+							line sensor: @sensors/cpu_core_1/default color: @colors/load/default
+						reading label: "Core  2" sensor: @sensors/cpu_core_2/default
+						size_wrapper height_max: 2 height_min: 2
+							line sensor: @sensors/cpu_core_2/default color: @colors/load/default
+						reading label: "Core  3" sensor: @sensors/cpu_core_3/default
+						size_wrapper height_max: 2 height_min: 2
+							line sensor: @sensors/cpu_core_3/default color: @colors/load/default
+						reading label: "Core  4" sensor: @sensors/cpu_core_4/default
+						size_wrapper height_max: 2 height_min: 2
+							line sensor: @sensors/cpu_core_4/default color: @colors/load/default
+						reading label: "Core  5" sensor: @sensors/cpu_core_5/default
+						size_wrapper height_max: 2 height_min: 2
+							line sensor: @sensors/cpu_core_5/default color: @colors/load/default
+						reading label: "Core  6" sensor: @sensors/cpu_core_6/default
+						size_wrapper height_max: 2 height_min: 2
+							line sensor: @sensors/cpu_core_6/default color: @colors/load/default
+						reading label: "Core  7" sensor: @sensors/cpu_core_7/default
+						size_wrapper height_max: 2 height_min: 2
+							line sensor: @sensors/cpu_core_7/default color: @colors/load/default
+						reading label: "Core  8" sensor: @sensors/cpu_core_8/default
+						size_wrapper height_max: 2 height_min: 2
+							line sensor: @sensors/cpu_core_8/default color: @colors/load/default
+						reading label: "Core  9" sensor: @sensors/cpu_core_9/default
+						size_wrapper height_max: 2 height_min: 2
+							line sensor: @sensors/cpu_core_9/default color: @colors/load/default
+						reading label: "Core 10" sensor: @sensors/cpu_core_10/default
+						size_wrapper height_max: 2 height_min: 2
+							line sensor: @sensors/cpu_core_10/default color: @colors/load/default
+						reading label: "Core 11" sensor: @sensors/cpu_core_11/default
+						size_wrapper height_max: 2 height_min: 2
+							line sensor: @sensors/cpu_core_11/default color: @colors/load/default
+						reading label: "Core 12" sensor: @sensors/cpu_core_12/default
+						size_wrapper height_max: 2 height_min: 2
+							line sensor: @sensors/cpu_core_12/default color: @colors/load/default
+						reading label: "Core 13" sensor: @sensors/cpu_core_13/default
+						size_wrapper height_max: 2 height_min: 2
+							line sensor: @sensors/cpu_core_13/default color: @colors/load/default
+						reading label: "Core 14" sensor: @sensors/cpu_core_14/default
+						size_wrapper height_max: 2 height_min: 2
+							line sensor: @sensors/cpu_core_14/default color: @colors/load/default
+						reading label: "Core 15" sensor: @sensors/cpu_core_15/default
+						size_wrapper height_max: 2 height_min: 2
+							line sensor: @sensors/cpu_core_15/default color: @colors/load/default
+						reading label: "Core 16" sensor: @sensors/cpu_core_16/default
+						size_wrapper height_max: 2 height_min: 2
+							line sensor: @sensors/cpu_core_16/default color: @colors/load/default
+						spacer height_min: 2 height_max: 4
+						
+				spacer width_min: 2 width_max: 4
+				plot color: @colors/subtlegrey/default 0
+					plot_mountain sensor: @sensors/ram_load/default    color: @colors/ram/default         40 fade: true
+					plot_mountain sensor: @sensors/cpu_fan/default     color: @colors/fan/default         40 fade: true min: 0 max: 3000
+					plot_mountain sensor: @sensors/cpu_temp/default    color: @colors/temperature/default 40 fade: true
+					plot_mountain sensor: @sensors/cpu_load/default    color: @colors/load/default        40 fade: true
+					plot_line     sensor: @sensors/cpu_core_1/default  color: @colors/smallload/default  100
+					plot_line     sensor: @sensors/cpu_core_2/default  color: @colors/smallload/default  100
+					plot_line     sensor: @sensors/cpu_core_3/default  color: @colors/smallload/default  100
+					plot_line     sensor: @sensors/cpu_core_4/default  color: @colors/smallload/default  100
+					plot_line     sensor: @sensors/cpu_core_5/default  color: @colors/smallload/default  100
+					plot_line     sensor: @sensors/cpu_core_6/default  color: @colors/smallload/default  100
+					plot_line     sensor: @sensors/cpu_core_7/default  color: @colors/smallload/default  100
+					plot_line     sensor: @sensors/cpu_core_8/default  color: @colors/smallload/default  100
+					plot_line     sensor: @sensors/cpu_core_9/default  color: @colors/smallload/default  100
+					plot_line     sensor: @sensors/cpu_core_10/default color: @colors/smallload/default  100
+					plot_line     sensor: @sensors/cpu_core_11/default color: @colors/smallload/default  100
+					plot_line     sensor: @sensors/cpu_core_12/default color: @colors/smallload/default  100
+					plot_line     sensor: @sensors/cpu_core_13/default color: @colors/smallload/default  100
+					plot_line     sensor: @sensors/cpu_core_14/default color: @colors/smallload/default  100
+					plot_line     sensor: @sensors/cpu_core_15/default color: @colors/smallload/default  100
+					plot_line     sensor: @sensors/cpu_core_16/default color: @colors/smallload/default  100
+					plot_line     sensor: @sensors/ram_load/default    color: @colors/ram/default
+					plot_line     sensor: @sensors/cpu_fan/default     color: @colors/fan/default min: 0 max: 3000
+					plot_line     sensor: @sensors/cpu_temp/default    color: @colors/temperature/default
+					plot_line     sensor: @sensors/cpu_load/default    color: @colors/load/default
+						
+	window size: 616 728 position: -1366 663 color: 0 30 0 200 title: "NVIDIA GeForce RTX 2070 SUPER" transparency: glass borders: false
+		vertical
+			spacer height_min: 2 height_max: 4
+			size_wrapper width_max: 512
+				horizontal
+					spacer width_min: 2 width_max: 4
+					vertical
+						reading label: "Usage" sensor: @sensors/gpu_load/default
+						reading label: "Temp"  sensor: @sensors/gpu_temp/default
+					spacer width_min: 2 width_max: 4
+					separator
+					spacer width_min: 2 width_max: 4
+					vertical
+						reading label: "Fan"   sensor: @sensors/gpu_fan/default
+						reading label: "RAM"   sensor: @sensors/gpu_vram_load/default
+					spacer width_min: 2 width_max: 4
+			spacer height_min: 2 height_max: 4
+			plot color: @colors/subtlegrey/default 0
+				plot_mountain sensor: @sensors/gpu_fan/default          color: @colors/fan/default 40         fade: true
+				plot_mountain sensor: @sensors/gpu_vram_load/default    color: @colors/ram/default 40         fade: true
+				plot_mountain sensor: @sensors/gpu_temp/default         color: @colors/temperature/default 40 fade: true
+				plot_mountain sensor: @sensors/gpu_load/default         color: @colors/load/default 40        fade: true
+				plot_line sensor: @sensors/gpu_fan/default          color: @colors/fan/default
+				plot_line sensor: @sensors/gpu_vram_load/default    color: @colors/ram/default
+				plot_line sensor: @sensors/gpu_temp/default         color: @colors/temperature/default
+				plot_line sensor: @sensors/gpu_load/default         color: @colors/load/default

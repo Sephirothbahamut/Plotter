@@ -1,0 +1,163 @@
+///////////////////////////////////////////
+// IMPORTANT NOTES:
+//  - Indent each section with [tab], not spacespam.
+//  - Do NOT use [tab] anywhere besides indentation and inside comments
+//  - In all sections anything separated by a space is treated as a different argument. The only exception is the strings section, where everything after the name of the string is treated as a single argument.
+///////////////////////////////////////////
+
+//Here you can associate a name to any sensor. Additionally, you can associate two already declared sensors to be merged into one. (see "ram_tot")
+sensors        //sensor id
+	//Processor
+	cpu_load    /amdcpu/0/load/0
+	cpu_temp    /amdcpu/0/temperature/3
+	cpu_fan     /lpc/it8688e/fan/0
+	ram_load    /ram/load/0
+	ram_used    /ram/data/0
+	ram_free    /ram/data/1
+	ram_tot     @sensors/ram_used/default @sensors/ram_free/default
+	cpu_core_1  /amdcpu/0/load/1
+	cpu_core_2  /amdcpu/0/load/2
+	cpu_core_3  /amdcpu/0/load/3
+	cpu_core_4  /amdcpu/0/load/4
+	cpu_core_5  /amdcpu/0/load/5
+	cpu_core_6  /amdcpu/0/load/6
+	cpu_core_7  /amdcpu/0/load/7
+	cpu_core_8  /amdcpu/0/load/8
+	cpu_core_9  /amdcpu/0/load/9
+	cpu_core_10 /amdcpu/0/load/10
+	cpu_core_11 /amdcpu/0/load/11
+	cpu_core_12 /amdcpu/0/load/12
+	cpu_core_13 /amdcpu/0/load/13
+	cpu_core_14 /amdcpu/0/load/14
+	cpu_core_15 /amdcpu/0/load/15
+	cpu_core_16 /amdcpu/0/load/16
+	
+	//Graphics Card
+	gpu_load         /gpu-nvidia/0/load/0
+	gpu_temp         /gpu-nvidia/0/temperature/0
+	gpu_fan          /gpu-nvidia/0/control/0
+	gpu_vram_load    /gpu-nvidia/0/load/3
+	gpu_vram_used    /gpu-nvidia/0/smalldata/2
+	gpu_vram_tot     /gpu-nvidia/0/smalldata/3
+	
+//Here you can associate a name to an rgba color. "window" and "graphicsbg" will overwrite the default window background and graphics background respectively.
+colors          //red green blue alpha
+	window         0     0    0  255
+	graphicsbg    32    32   32  255
+	load           0   255    0
+	temperature  255     0    0
+	smallload      0   200  180
+	fan          100   100  250
+	ram          255   255    0
+	subtlegrey    30    30   30
+	
+// Time to build the UI. 
+
+ui
+	window size: 400 200 position: 100 100 color: 0 0 0 0                                   //width, height
+		vertical
+			text "AMD Ryzen 7 3800X"                                   //string name
+			horizontal
+				vertical
+					reading label: usage sensor: @sensors/cpu_load/default 
+					reading label: temp  sensor: @sensors/cpu_temp/default
+				vertical
+					reading label: fan   sensor: @sensors/cpu_fan/default
+					reading label: ram   sensor: @sensors/ram_load/default sensor2:  @sensors/ram_used/default sensor3:  @sensors/ram_tot/default 
+			horizontal
+				size_wrapper halign: left width_max: 128
+					vertical halign: left
+						reading label: core1  sensor: @sensors/cpu_core_1/default
+						size_wrapper height_max: 2 height_min: 2
+							line sensor: @sensors/cpu_core_1/default color: @colors/load/default
+						reading label: core2  sensor: @sensors/cpu_core_2/default
+						size_wrapper height_max: 2 height_min: 2
+							line sensor: @sensors/cpu_core_2/default color: @colors/load/default
+						reading label: core3  sensor: @sensors/cpu_core_3/default
+						size_wrapper height_max: 2 height_min: 2
+							line sensor: @sensors/cpu_core_3/default color: @colors/load/default
+						reading label: core4  sensor: @sensors/cpu_core_4/default
+						size_wrapper height_max: 2 height_min: 2
+							line sensor: @sensors/cpu_core_4/default color: @colors/load/default
+						reading label: core5  sensor: @sensors/cpu_core_5/default
+						size_wrapper height_max: 2 height_min: 2
+							line sensor: @sensors/cpu_core_5/default color: @colors/load/default
+						reading label: core6  sensor: @sensors/cpu_core_6/default
+						size_wrapper height_max: 2 height_min: 2
+							line sensor: @sensors/cpu_core_6/default color: @colors/load/default
+						reading label: core7  sensor: @sensors/cpu_core_7/default
+						size_wrapper height_max: 2 height_min: 2
+							line sensor: @sensors/cpu_core_7/default color: @colors/load/default
+						reading label: core8  sensor: @sensors/cpu_core_8/default
+						size_wrapper height_max: 2 height_min: 2
+							line sensor: @sensors/cpu_core_8/default color: @colors/load/default
+						reading label: core9  sensor: @sensors/cpu_core_9/default
+						size_wrapper height_max: 2 height_min: 2
+							line sensor: @sensors/cpu_core_9/default color: @colors/load/default
+						reading label: core10 sensor: @sensors/cpu_core_10/default
+						size_wrapper height_max: 2 height_min: 2
+							line sensor: @sensors/cpu_core_10/default color: @colors/load/default
+						reading label: core11 sensor: @sensors/cpu_core_11/default
+						size_wrapper height_max: 2 height_min: 2
+							line sensor: @sensors/cpu_core_11/default color: @colors/load/default
+						reading label: core12 sensor: @sensors/cpu_core_12/default
+						size_wrapper height_max: 2 height_min: 2
+							line sensor: @sensors/cpu_core_12/default color: @colors/load/default
+						reading label: core13 sensor: @sensors/cpu_core_13/default
+						size_wrapper height_max: 2 height_min: 2
+							line sensor: @sensors/cpu_core_13/default color: @colors/load/default
+						reading label: core14 sensor: @sensors/cpu_core_14/default
+						size_wrapper height_max: 2 height_min: 2
+							line sensor: @sensors/cpu_core_14/default color: @colors/load/default
+						reading label: core15 sensor: @sensors/cpu_core_15/default
+						size_wrapper height_max: 2 height_min: 2
+							line sensor: @sensors/cpu_core_15/default color: @colors/load/default
+						reading label: core16 sensor: @sensors/cpu_core_16/default
+						size_wrapper height_max: 2 height_min: 2
+							line sensor: @sensors/cpu_core_16/default color: @colors/load/default
+					
+				size_wrapper halign: left width_min: 300	
+					plot color: @colors/subtlegrey/default 0
+						plot_mountain sensor: @sensors/ram_load/default    color: @colors/ram/default 40         fade: true
+						plot_mountain sensor: @sensors/cpu_fan/default     color: @colors/fan/default 40         fade: true min: 0 max: 3000
+						plot_mountain sensor: @sensors/cpu_temp/default    color: @colors/temperature/default 40 fade: true
+						plot_mountain sensor: @sensors/cpu_load/default    color: @colors/load/default 40        fade: true
+						plot_line sensor: @sensors/cpu_core_1/default  color: @colors/smallload/default 100
+						plot_line sensor: @sensors/cpu_core_2/default  color: @colors/smallload/default 100
+						plot_line sensor: @sensors/cpu_core_3/default  color: @colors/smallload/default 100
+						plot_line sensor: @sensors/cpu_core_4/default  color: @colors/smallload/default 100
+						plot_line sensor: @sensors/cpu_core_5/default  color: @colors/smallload/default 100
+						plot_line sensor: @sensors/cpu_core_6/default  color: @colors/smallload/default 100
+						plot_line sensor: @sensors/cpu_core_7/default  color: @colors/smallload/default 100
+						plot_line sensor: @sensors/cpu_core_8/default  color: @colors/smallload/default 100
+						plot_line sensor: @sensors/cpu_core_9/default  color: @colors/smallload/default 100
+						plot_line sensor: @sensors/cpu_core_10/default color: @colors/smallload/default 100
+						plot_line sensor: @sensors/cpu_core_11/default color: @colors/smallload/default 100
+						plot_line sensor: @sensors/cpu_core_12/default color: @colors/smallload/default 100
+						plot_line sensor: @sensors/cpu_core_13/default color: @colors/smallload/default 100
+						plot_line sensor: @sensors/cpu_core_14/default color: @colors/smallload/default 100
+						plot_line sensor: @sensors/cpu_core_15/default color: @colors/smallload/default 100
+						plot_line sensor: @sensors/cpu_core_16/default color: @colors/smallload/default 100
+						plot_line sensor: @sensors/ram_load/default    color: @colors/ram/default
+						plot_line sensor: @sensors/cpu_fan/default     color: @colors/fan/default min: 0 max: 3000
+						plot_line sensor: @sensors/cpu_temp/default    color: @colors/temperature/default
+						plot_line sensor: @sensors/cpu_load/default    color: @colors/load/default
+	window size: 400 200 position: 100 100 color: 0 0 0 0
+		vertical
+			text "NVIDIA GeForce RTX 2070 SUPER"
+			horizontal
+				vertical
+					reading label: usage sensor: @sensors/gpu_load/default
+					reading label: temp  sensor: @sensors/gpu_temp/default
+				vertical
+					reading label: fan   sensor: @sensors/gpu_fan/default
+					reading label: ram   sensor: @sensors/gpu_vram_load/default
+			plot color: @colors/subtlegrey/default 0
+				plot_mountain sensor: @sensors/gpu_fan/default          color: @colors/fan/default 40         fade: true
+				plot_mountain sensor: @sensors/gpu_vram_load/default    color: @colors/ram/default 40         fade: true
+				plot_mountain sensor: @sensors/gpu_temp/default         color: @colors/temperature/default 40 fade: true
+				plot_mountain sensor: @sensors/gpu_load/default         color: @colors/load/default 40        fade: true
+				plot_line sensor: @sensors/gpu_fan/default          color: @colors/fan/default
+				plot_line sensor: @sensors/gpu_vram_load/default    color: @colors/ram/default
+				plot_line sensor: @sensors/gpu_temp/default         color: @colors/temperature/default
+				plot_line sensor: @sensors/gpu_load/default         color: @colors/load/default

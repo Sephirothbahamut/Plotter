@@ -1,0 +1,178 @@
+#pragma once
+#pragma comment (lib, "dwmapi.lib")//without this dwmapi.h doesn't work :shrugs: no idea whatsoever where the compiler is taking this file from
+#include <vector>
+#include <SFML/System.hpp>
+#include <SFML/Graphics.hpp>
+#include <Windows.h>
+#include <WinUser.h>
+#include <dwmapi.h>
+#include <tchar.h>
+#include <Shlwapi.h>
+#include "../UI.h"
+#include "../utils.h"
+
+namespace UI
+	{
+	class Window
+		{
+
+		public:
+			std::mutex mutex;
+
+			Window(std::unique_ptr<Element>& root, sf::String title, sf::Vector2i position = sf::Vector2i(0, 0), sf::Vector2u size = sf::Vector2u(800, 600), sf::Color color = sf::Color::Black)
+				: inner(sf::VideoMode::getDesktopMode(), title, sf::Style::None, sf::ContextSettings(0, 0, 8, 1, 0, 0, false)),
+				root(std::move(root)), drawables(this->root->get_drawables()), updatables(this->root->get_updatables()), bg_color(color)
+				{
+				inner.setPosition(position); inner.setSize(size);
+				this->root->ui_update_begin(sf::Vector2f(0, 0), sf::Vector2f(size.x, size.y));
+
+				handle = inner.getSystemHandle();
+				MARGINS margins;
+				margins.cxLeftWidth = -1;
+				SetWindowLong(handle, GWL_STYLE, WS_POPUP | WS_VISIBLE);
+				DwmExtendFrameIntoClientArea(handle, &margins);
+				}
+
+			bool running() { return inner.isOpen(); }
+			void poll_events() { sf::Event event; while (inner.pollEvent(event)) { event_switch(event); } }
+			void wait_events() { sf::Event event; if (inner.waitEvent(event)) { event_switch(event); } }
+
+			void run_threaded() { inner.setActive(false); while (inner.isOpen()) { wait_events(); } }
+
+			void run()
+				{
+				while (inner.isOpen())
+					{
+					poll_events();
+					draw();
+					}
+				}
+
+			void update() { std::lock_guard lock(mutex); for (Updatable* u : updatables) { u->update(); } }
+
+			template <bool debug = false>
+			void draw()
+				{
+				inner.clear(bg_color);
+				if (true)
+					{
+					std::lock_guard lock(mutex);
+					if constexpr (debug) { root->ui_debug_draw(inner, sf::RenderStates::Default); }
+					for (const Drawable* i : drawables) { inner.draw(*i); }
+					}
+				inner.display();
+				}
+
+		protected:
+			enum class Dragging { ll, up, rr, dw, center, none };
+			sf::RenderWindow inner;
+			HWND handle;
+			std::unique_ptr<Element> root;
+			std::vector<const Drawable*> drawables;
+			std::vector<Updatable*> updatables;
+			sf::Color bg_color;
+
+			// Events
+			void event_switch(sf::Event e)
+				{
+				switch (e.type)
+					{
+						case sf::Event::Closed: on_close(e); break;
+						case sf::Event::Resized: on_resize(e.size); break;
+						case sf::Event::MouseButtonPressed: on_click(e.mouseButton); break;
+						case sf::Event::MouseButtonReleased: on_release(e.mouseButton); break;
+						case sf::Event::MouseMoved: on_move(e.mouseMove); break;
+						case sf::Event::MouseLeft: on_leave(e); break;
+						case sf::Event::KeyPressed: on_key(e.key); break;
+					}
+				}
+
+			void on_close(sf::Event e) { inner.close(); }
+
+			void on_resize(sf::Event::SizeEvent e) { on_resize(); }
+			void on_resize()
+				{
+				std::lock_guard lock(mutex);
+				inner.setView(sf::View(sf::FloatRect(0, 0, inner.getSize().x, inner.getSize().y)));
+				root->ui_update_begin(sf::Vector2f(0, 0), sf::Vector2f(inner.getSize().x, inner.getSize().y));
+				}
+
+			// Window dragging
+			sf::Vector2i delta;
+			Dragging dragging = Dragging::none;
+
+			void on_click(sf::Event::MouseButtonEvent e)
+				{
+				sf::Vector2i mouse = sf::Mouse::getPosition() - inner.getPosition();
+				/*/*/if (mouse.x < 10) { dragging = Dragging::ll; delta = {inner.getPosition().x, (int)inner.getSize().x}; }	//todo calc this
+				else if (mouse.y < 10) { dragging = Dragging::up; delta = {inner.getPosition().y, (int)inner.getSize().y}; }	//todo calc this
+				else if (mouse.x > inner.getSize().x - 10) { dragging = Dragging::rr; }
+				else if (mouse.y > inner.getSize().y - 10) { dragging = Dragging::dw; }
+				else { delta = mouse; dragging = Dragging::center; } //use mouse_delta to represent distance from window origin to trag the window
+				}
+			void on_release(sf::Event::MouseButtonEvent e) { dragging = Dragging::none; }
+			void on_move(sf::Event::MouseMoveEvent e) { on_global_move(); }
+			void on_leave(sf::Event e) { on_global_move(); }
+			void on_global_move()
+				{
+				sf::Vector2i mouse = sf::Mouse::getPosition() - inner.getPosition();
+				/*/*/if (mouse.x < 10) { SetCursor(LoadCursor(NULL, IDC_SIZEWE)); }
+				else if (mouse.y < 10) { SetCursor(LoadCursor(NULL, IDC_SIZENS)); }
+				else if (mouse.x > inner.getSize().x - 10) { SetCursor(LoadCursor(NULL, IDC_SIZEWE)); }
+				else if (mouse.y > inner.getSize().y - 10) { SetCursor(LoadCursor(NULL, IDC_SIZENS)); }
+				else { SetCursor(LoadCursor(NULL, IDC_SIZEALL)); }
+
+				if (dragging == Dragging::none) { return; }
+				if (dragging == Dragging::center)
+					{
+					sf::Vector2i new_position = sf::Mouse::getPosition() - delta;
+					inner.setPosition(new_position);
+					}
+				else
+					{
+					switch (dragging)
+						{
+						case Dragging::ll:
+							break;
+						case Dragging::up:
+							break;
+						case Dragging::rr:
+							inner.setSize(sf::Vector2u(sf::Mouse::getPosition().x + 3 - inner.getPosition().x, inner.getSize().y));
+							break;
+						case Dragging::dw:
+							inner.setSize(sf::Vector2u(inner.getSize().x, sf::Mouse::getPosition().y + 3 - inner.getPosition().y));
+							break;
+						}
+					}
+				}
+			void on_key(sf::Event::KeyEvent e)
+				{
+				switch (e.code)
+					{
+						case sf::Keyboard::Num1: SetWindowPos(handle, HWND_BOTTOM,    0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE); break;
+						case sf::Keyboard::Num2: SetWindowPos(handle, HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE); break;
+						case sf::Keyboard::Num3: SetWindowPos(handle, HWND_TOPMOST,   0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE); break;
+					}
+				}
+		};
+
+	class Window_factory
+		{
+		public:
+			Window_factory(std::unique_ptr<Element>& root, sf::String title, sf::Vector2i position = sf::Vector2i(0, 0), sf::Vector2u size = sf::Vector2u(800, 600), sf::Color color = sf::Color::Black)
+				: root(std::move(root)), title(title), position(position), size(size), bg_color(color)
+				{}
+
+			std::unique_ptr<Window> create()
+				{
+				return std::make_unique<Window>(root, title, position, size, bg_color);
+				}
+
+		private:
+			std::unique_ptr<Element> root;
+			sf::String title;
+			sf::Vector2i position;
+			sf::Vector2u size;
+			sf::Color bg_color;
+		};
+	}
