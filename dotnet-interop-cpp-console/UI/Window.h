@@ -1,5 +1,4 @@
 #pragma once
-#pragma comment (lib, "dwmapi.lib")//without this dwmapi.h doesn't work :shrugs: no idea whatsoever where the compiler is taking this file from
 #include <vector>
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
@@ -84,7 +83,7 @@ namespace UI
 				switch (p.transparency)
 					{
 					case Properties::Transparency::no:                                                                break;
-					case Properties::Transparency::transparent: utils::window::make_glass_DWM(hwnd);                  break;
+					case Properties::Transparency::transparent: utils::window::make_glass_DWM_BlurBehind(hwnd);       break;
 					case Properties::Transparency::glass:       utils::window::make_glass_CompositionAttribute(hwnd); break;
 					}
 				}

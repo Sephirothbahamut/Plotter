@@ -184,7 +184,7 @@ settings
 //
 
 ui
-	window size: 749 728 position: -750 663 color: 30 0 0 200 title: "AMD Ryzen 7 3800X" transparency: glass borders: false
+	window size: 749 728 position: -750 663 color: 30 0 0 200 title: "AMD Ryzen 7 3800X" transparency: glass borders: true
 		vertical
 			spacer height_min: 2 height_max: 4
 			size_wrapper width_max: 512
